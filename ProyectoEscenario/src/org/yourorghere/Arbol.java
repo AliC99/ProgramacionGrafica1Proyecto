@@ -21,6 +21,10 @@ public class Arbol {
     float w, h, d;
     float ang;
 
+    public float getX(){
+        return x;
+    }
+    
     public Arbol(GL gl, float x, float y, float z, float w, float h, float d,float ang) {
         this.gl = gl;
         this.x = x;

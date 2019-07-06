@@ -19,8 +19,8 @@ public class Persona  {
     Esfera cabeza;
     Cilindro cuello, torso;
     Cubo piernai, piernad, piei, pied, pantalon, brazod, brazoi;
-    //Torus torus;
-    Piramide piramide;
+    Torus torus;
+   
 
     public Persona(GL gl, float x, float y, float z, float w, float h, float d) {
         this.gl = gl;
@@ -30,41 +30,24 @@ public class Persona  {
         this.w = w;
         this.h = h;
         this.d = d;
-        cabeza = new Esfera(gl, 0, 0, 0, 0.3f, 0.3f, 0.3f, 0.9f, 1f, 0.7f, 100, 100);
+        cabeza = new Esfera(gl, 0, 0, 0, 0.3f, 0.3f, 0.3f, 0.9f, 1f, 0.7f, 32, 32);
         cuello = new Cilindro(gl, 0, 0, 0, 0.4f, 0.4f, 0.2f, 0.2f, 0.3f, 0.4f, 40, 40, 0.25f, 0.25f);
         torso = new Cilindro(gl, 0, 0, 0, 1.0f, 1.0f, 0.8f, 0.2f, 0.3f, 0.4f, 40, 40, 0.25f, 0.25f);
-//        piernad = new Cubo(gl, 0, 0, 0, 0.15f, 0.7f, 0.2f, 0.5f, 0.3f, 0.4f, 0, 0, 0);
-//        piernai = new Cubo(gl, 0, 0, 0, 0.15f, 0.7f, 0.2f, 0.5f, 0.3f, 0.4f, 0, 0, 0);
-//        pantalon = new Cubo(gl, 0, 0, 0, 0.4f, 0.1f, 0.2f, 0.5f, 0.3f, 0.4f, 0, 0, 0);
-//        piei = new Cubo(gl, 0, 0, 0, 0.15f, 0.1f, 0.3f, 0.6f, 0.2f, 0.1f, 0, 0, 0);
-//        pied = new Cubo(gl, 0, 0, 0, 0.15f, 0.1f, 0.3f, 0.6f, 0.2f, 0.1f, 0, 0, 0);
-//        brazod = new Cubo(gl, 0, 0, 0, 0.7f, 0.1f, 0.2f, 0.0f, 0.1f, 0.2f, 0, 0, 0);
-//        brazoi = new Cubo(gl, 0, 0, 0, 0.7f, 0.1f, 0.2f, 0.0f, 0.1f, 0.2f, 0, 0, 0);
-//        torus=new Torus(gl, 0, 0, 0, 0.5f, 0.46f, 0.3f, 1.0f, 1.0f, 0.4f, 0.1f, 0.5f, 32, 32);
-        piramide= new Piramide (gl,0, 0, 0, 0.3f, 0.3f, 0.3f, 0.1f, 0.3f, 0.1f);
+        piernad = new Cubo(gl, 0, 0, 0, 0.15f, 0.7f, 0.2f, 0.5f, 0.3f, 0.4f);
+        piernai = new Cubo(gl, 0, 0, 0, 0.15f, 0.7f, 0.2f, 0.5f, 0.3f, 0.4f);
+        pantalon = new Cubo(gl, 0, 0, 0, 0.4f, 0.1f, 0.2f, 0.5f, 0.3f, 0.4f);
+        piei = new Cubo(gl, 0, 0, 0, 0.15f, 0.1f, 0.3f, 0.6f, 0.2f, 0.1f);
+        pied = new Cubo(gl, 0, 0, 0, 0.15f, 0.1f, 0.3f, 0.6f, 0.2f, 0.1f);
+        brazod = new Cubo(gl, 0, 0, 0, 0.7f, 0.1f, 0.2f, 0.0f, 0.1f, 0.2f);
+        brazoi = new Cubo(gl, 0, 0, 0, 0.7f, 0.1f, 0.2f, 0.0f, 0.1f, 0.2f);
+        torus=new Torus(gl, 0, 0, 0, 0.5f, 0.46f, 0.3f, 1.0f, 1.0f, 0.4f, 0.1f, 0.5f, 20, 20);
     }
     
     public void dibujarPersona(){
         gl.glPushMatrix();
         
         gl.glScalef(w,h,d);
-        
-        //Piramide
-        gl.glPushMatrix();
-        gl.glTranslatef(-0.47f,1.5f,-2.8f);
-        Teclado.rotarY(gl);  
-        piramide.dibujarPiramide();
-        gl.glPopMatrix();
-        
-        
-        //TORUS
-        gl.glPushMatrix();
-        gl.glTranslatef(-0.47f,1.1f,-2.8f);
-        Teclado.rotarY(gl);
-        gl.glRotatef(90,1,0,0);   
-        //torus.dibujarTorus();
-        gl.glPopMatrix();
-        
+                     
          //CABEZA
         gl.glPushMatrix();
         gl.glTranslatef(-0.5f, 0.8f, -3f); 

@@ -34,12 +34,20 @@ public class Teclado implements KeyListener {
     private static float rotarY = 0;
     private static float rotarZ = 0;
 
+    private static float trasladar=0;
 
-
+    public static float getTrasladar(){
+        return trasladar;
+    }
+    
     public static float getTrasladaX() {
         return trasladaX;
     }
 
+     public static void setTrasladaX(float t) {
+       trasladar=t;
+    }
+     
     public static float getTrasladaY() {
         return trasladaY;
     }
@@ -52,6 +60,14 @@ public class Teclado implements KeyListener {
         return rotarX;
     }
 
+    public static void trasladarZ(GL gl){
+        trasladar+=0.2f;
+        gl.glTranslatef(0,0,trasladar);
+      
+        
+        System.out.println(trasladar);
+    }
+    
     public static void rotarY(GL gl) {
         rotarY += 3.0f;
         gl.glRotatef(rotarY, 0, 1, 0);

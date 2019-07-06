@@ -31,11 +31,18 @@ public class Proyecto implements GLEventListener {
     Piso p1;
     Arbol ac;
     Teclado t;
+    Mouse m;
+    //Mouseprueba m;
     Restaurante r1;
     Buzon b1;
     Cielo ci1;
+    Persona pr1;
+//    Raton rt1;
+//    Raton rt2;
+//    Raton rt3;
     ArrayList<Casa> cabania;
     ArrayList<Arbol> arbol;
+    ArrayList<Raton> raton;
     
     public static void main(String[] args) {
         Frame frame = new Frame("Simple JOGL Application");
@@ -85,13 +92,32 @@ public class Proyecto implements GLEventListener {
          
          t=new Teclado();
          drawable.addKeyListener(t);
-         
+         m=new Mouse();
+         //m=new Mouseprueba();
+         drawable.addMouseMotionListener(m);
+         //drawable.addMouseListener(m);
         ac=new Arbol(gl,0.0f, -0.78f, -6.8f,1.2f,3.5f,1.2f,45);
         p1=new Piso(gl,0,-0.98f,-1.5f,6.5f, 0.2f, 42.5f);       
         r1=new Restaurante(gl,0,-0.2f,-19f,2.75f,1.2f,2.1f);
         b1=new Buzon(gl,0,0,0,0.2f,0.7f,0.25f,0);        
         ci1=new Cielo(gl,0,0,0,10f,9.5f,42.5f);
+        pr1=new Persona(gl,0,0.5f,-1f,0.6f,0.6f,0.6f);
+//        rt1=new Raton(gl,-2.0f,-0.7f,-12f,0.15f,0.2f,0.3f);
+//        rt2=new Raton(gl,-2.0f,-0.7f,-22f,0.15f,0.2f,0.3f);
+//        rt3=new Raton(gl,-2.0f,-0.7f,-32f,0.15f,0.2f,0.3f);
         
+        //RATONES
+        raton= new ArrayList<Raton>();
+        for(int i=0;i<3;i++){
+           try{
+             raton.add(new Raton(gl,-2.0f,-0.7f,-i*12f,0.15f,0.2f,0.3f));
+             raton.add(new Raton(gl,2.0f,-0.7f,-i*12f,0.15f,0.2f,0.3f));             
+           }catch(Exception e){
+               System.exit(0);
+           }
+        }
+        //FIN RATONES
+
         //CASAS
          cabania= new ArrayList<Casa>();
         for(int i=0;i<5;i++){
@@ -166,7 +192,9 @@ public class Proyecto implements GLEventListener {
           
        //Fondo
        if(ncam==1){
-             glu.gluLookAt(ac.x,ac.y+0.4f,ac.z+3.2f,ac.x,ac.y,ac.z,0,1,0);    }
+             glu.gluLookAt(ac.x,ac.y+0.4f,ac.z+3.2f,ac.x,ac.y,ac.z,0,1,0);
+       //glu.gluLookAt(p1.x,p1.y+0.2f,p1.z+2.5f,p1.x,p1.y,p1.z,0,1,0);
+       }
        
 //       if(ncam==2){
 //             glu.gluLookAt(b1.x,b1.y+1.0f,b1.z+2.5f,b1.x,b1.y,b1.z,0,1,0);    }
@@ -176,29 +204,35 @@ public class Proyecto implements GLEventListener {
              glu.gluLookAt(r1.x,r1.y+1.1f,r1.z+3,r1.x,r1.y,r1.z,0,1,0);    }
       
       //Dibujar objetos  
-//      gl.glPushMatrix();
+      gl.glPushMatrix();
        ac.x=Teclado.getTrasladaX();
        ac.y=Teclado.getTrasladaY();
        ac.z=Teclado.getTrasladaZ();
+       
+//       ac.z=Mouse.trasladaZ;
+//      
+//       ac.x=Mouse.trasladaX;
+//       ac.y=Mouse.trasladaY;
+//     
       //ac.dibujarArbol();
-//      gl.glPopMatrix();
+      gl.glPopMatrix();
       
-//      gl.glPushMatrix();
-//      gl.glRotatef(90,0,1,0);
-//      c1.dibujarCasa();
-//      gl.glPopMatrix();
-//        for (int i = 0; i < 10; i+=c1.w) {
-//            gl.glTranslatef(0,0,i);
-//            c1.dibujarCasa();
-//        }
+
       
        for(Casa c:cabania){ c.dibujarCasa(); }
        for(Arbol a:arbol){ a.dibujarArbol(); }
+       for(Raton r:raton){ r.raton(); }
+       
       p1.dibujarPiso();
       r1.dibujarRestaurante();
       ci1.noche();
      // b1.buzon();
-
+     //pr1.dibujarPersona();
+     
+     //RATÓN
+  
+     
+      //FIN RATÓN
       
         // Flush all drawing operations to the graphics card
         gl.glFlush();

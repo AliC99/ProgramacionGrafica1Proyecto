@@ -13,18 +13,16 @@ import java.awt.event.MouseMotionListener;
  *
  * @author Alison
  */
-public class Mouse implements MouseListener, MouseMotionListener{
-
-    static float trasladaX=0;
+public class Mouseprueba implements MouseListener,MouseMotionListener {
+      static float trasladaZ=0;
+      static float trasladaX=0;
     static float trasladaY=0;
     
-    
-     static float trasladaZ=0;
-    
+     int xInicial=0;
+     int yInicial=0;
     @Override
     public void mouseClicked(MouseEvent e) {
-        
-        System.out.println(""+e.getX());
+         System.out.println(""+e.getX());
          if (e.isMetaDown()) {
             trasladaZ+=0.3f;
         System.out.println(""+trasladaZ);        
@@ -34,12 +32,9 @@ public class Mouse implements MouseListener, MouseMotionListener{
          }
     }
 
-    
-     
     @Override
     public void mousePressed(MouseEvent e) {
        
-  
     }
 
     @Override
@@ -49,26 +44,22 @@ public class Mouse implements MouseListener, MouseMotionListener{
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        
+       
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-        
+       
     }
-    
-    
-    
+
     @Override
     public void mouseDragged(MouseEvent e) {
         
     }
 
-     int xInicial=0;
-     int yInicial=0;
     @Override
-    public void mouseMoved(MouseEvent e) {       
-        //Movimiento en X
+    public void mouseMoved(MouseEvent e) {
+               //Movimiento en X
         if(xInicial > e.getX())
         {
             trasladaX-=0.2f;          
@@ -94,10 +85,6 @@ public class Mouse implements MouseListener, MouseMotionListener{
         yInicial = e.getY();
         
         System.out.println(""+trasladaZ);
-        
     }
-
-    
-   
     
 }
