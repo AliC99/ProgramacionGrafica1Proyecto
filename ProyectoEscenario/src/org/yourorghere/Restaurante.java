@@ -23,7 +23,7 @@ public class Restaurante {
             botellacb1,
             botellacb2,
             maquina, maquina1, lineamq, maqsp, lnc, lnc1,
-            puerta, letrero, letra;
+            puerta, pBorde, letrero, letra,puertaS1,puertaS2;
     Esfera tablero, tablerop,
             eredonda,
             ebredonda,
@@ -62,14 +62,18 @@ public class Restaurante {
         nieve = new Cubo(gl, 0, 0, 0, 1.2f * w, h / 18, 1.2f * d, 0.9f, 0.9f, 1.0f);
         suelo = new Cubo(gl, 0, 0, 0, w , h / 30, d/2 , 0.78f, 0.33f, 0.004f);
         suelo1 = new Cubo(gl, 0, 0, 0, w , h / 30, d/2 , 0.61f, 0.14f, 0.0f);
+        //FIN PAREDES
         
         //PUERTA
         puerta = new Cubo(gl, 0, 0, 0, w/7.5f , h / 2.2f, d/25 , 0.47f, 0.25f, 0.09f);
+        puertaS1 = new Cubo(gl, 0, 0, 0, puerta.w , puerta.h/3, puerta.d , 0.79f,0.05f,0.06f);
+        puertaS2 = new Cubo(gl, 0, 0, 0, puerta.w , puerta.h/3, puerta.d , 1,0.93f,0.89f);
+        pBorde = new Cubo(gl, 0, 0, 0, puerta.w/5 , puerta.h, 1.3f*puerta.d , 0.37f, 0.15f, 0.0f);        
         //FIN PUERTA
         
         //LETRERO
         letrero = new Cubo(gl, 0, 0, 0, w , h / 4, d/10 , 0.29f, 0.07f, 0.06f);
-        letra = new Cubo(gl, 0, 0, 0, letrero.w/48 , letrero.h/1.1f, letrero.d , 0.87f, 0.8f, 0.45f);
+        letra = new Cubo(gl, 0, 0, 0, letrero.w/48 , letrero.h/1.1f, letrero.d/3 , 0.87f, 0.8f, 0.45f);
         //FIN LETRERO
         
         //FIN PAREDES
@@ -120,21 +124,21 @@ public class Restaurante {
         //BOTELLAS
         botella = new Esfera(gl, 0, 0, 0, estante.w / 15, 1.6f * estante.h, estante.d / 3.5f, 0.3f, 0.2f, 0.0f, 5, 5);
         botellacb = new Cubo(gl, 0, 0, 0, estante.w / 7.8f, 1.3f * estante.h, 1.3f * botella.d, 0.3f, 0.2f, 0.0f);
-        botellac = new Cilindro(gl, 0, 0, 0, botellacb.w / 1.2f, botellacb.d, botellacb.h, 0.3f, 0.2f, 0.02f, 40, 40, 0.2f, 0.2f);
-        botellat = new Cilindro(gl, 0, 0, 0, botellacb.w / 1.2f, botellacb.d, botellacb.h / 2, 1, 0.62f, 0.008f, 40, 40, 0.2f, 0.2f);
-        botellacn = new Cilindro(gl, 0, 0, 0, botellacb.w * 2.9f, botellacb.d * 4.8f, botella.h / 1.7f, 0.7f, 0.7f, 0.7f, 40, 40, 0.2f, 0.2f);
+        botellac = new Cilindro(gl, 0, 0, 0, botellacb.w / 1.2f, botellacb.d, botellacb.h, 0.3f, 0.2f, 0.02f, 30, 30, 0.2f, 0.2f);
+        botellat = new Cilindro(gl, 0, 0, 0, botellacb.w / 1.2f, botellacb.d, botellacb.h / 2, 1, 0.62f, 0.008f, 30, 30, 0.2f, 0.2f);
+        botellacn = new Cilindro(gl, 0, 0, 0, botellacb.w * 2.9f, botellacb.d * 4.8f, botella.h / 1.7f, 0.7f, 0.7f, 0.7f, 30, 30, 0.2f, 0.2f);
 
         botella1 = new Esfera(gl, 0, 0, 0, estante.w / 15, 1.6f * estante.h, estante.d / 3.5f, 0.5f, 0.0f, 0.1f, 5, 5);
         botellacb1 = new Cubo(gl, 0, 0, 0, estante.w / 7.8f, 1.3f * estante.h, 1.3f * botella.d, 0.5f, 0.0f, 0.1f);
-        botellac1 = new Cilindro(gl, 0, 0, 0, botellacb.w / 1.2f, botellacb.d, botellacb.h, 0.5f, 0.0f, 0.1f, 40, 40, 0.2f, 0.2f);
-        botellat1 = new Cilindro(gl, 0, 0, 0, botellacb.w / 1.2f, botellacb.d, botellacb.h / 2, 1, 0.62f, 0.008f, 40, 40, 0.2f, 0.2f);
-        botellacn1 = new Cilindro(gl, 0, 0, 0, botellacb.w * 2.9f, botellacb.d * 4.8f, botella.h / 1.7f, 0.7f, 0.7f, 0.7f, 40, 40, 0.2f, 0.2f);
+        botellac1 = new Cilindro(gl, 0, 0, 0, botellacb.w / 1.2f, botellacb.d, botellacb.h, 0.5f, 0.0f, 0.1f, 30, 30, 0.2f, 0.2f);
+        botellat1 = new Cilindro(gl, 0, 0, 0, botellacb.w / 1.2f, botellacb.d, botellacb.h / 2, 1, 0.62f, 0.008f, 30, 30, 0.2f, 0.2f);
+        botellacn1 = new Cilindro(gl, 0, 0, 0, botellacb.w * 2.9f, botellacb.d * 4.8f, botella.h / 1.7f, 0.7f, 0.7f, 0.7f, 30, 30, 0.2f, 0.2f);
 
         botella2 = new Esfera(gl, 0, 0, 0, estante.w / 15, 1.6f * estante.h, estante.d / 3.5f, 0.7f, 0.3f, 0.0f, 5, 5);
         botellacb2 = new Cubo(gl, 0, 0, 0, estante.w / 7.8f, 1.3f * estante.h, 1.3f * botella.d, 0.7f, 0.3f, 0.0f);
-        botellac2 = new Cilindro(gl, 0, 0, 0, botellacb.w / 1.2f, botellacb.d, botellacb.h, 0.7f, 0.3f, 0.0f, 40, 40, 0.2f, 0.2f);
-        botellat2 = new Cilindro(gl, 0, 0, 0, botellacb.w / 1.2f, botellacb.d, botellacb.h / 2, 1, 0.62f, 0.008f, 40, 40, 0.2f, 0.2f);
-        botellacn2 = new Cilindro(gl, 0, 0, 0, botellacb.w * 2.9f, botellacb.d * 4.8f, botella.h / 1.7f, 0.7f, 0.7f, 0.7f, 40, 40, 0.2f, 0.2f);
+        botellac2 = new Cilindro(gl, 0, 0, 0, botellacb.w / 1.2f, botellacb.d, botellacb.h, 0.7f, 0.3f, 0.0f, 30, 30, 0.2f, 0.2f);
+        botellat2 = new Cilindro(gl, 0, 0, 0, botellacb.w / 1.2f, botellacb.d, botellacb.h / 2, 1, 0.62f, 0.008f, 30, 30, 0.2f, 0.2f);
+        botellacn2 = new Cilindro(gl, 0, 0, 0, botellacb.w * 2.9f, botellacb.d * 4.8f, botella.h / 1.7f, 0.7f, 0.7f, 0.7f, 30, 30, 0.2f, 0.2f);
         //FIN BOTELLAS
 
         //MAQUINA
@@ -147,7 +151,7 @@ public class Restaurante {
         maqc = new Torus(gl, 0, 0, 0, maquina1.w / 2, maquina1.h / 1.5f, 1.2f * maquina1.d, 1.0f, 1.0f, 0.4f, 0.1f, 0.5f, 15, 15);
         maqsp = new Cubo(gl, 0, 0, 0, maquina.w / 2.5f, maquina.h / 7, maquina.d, 1f, 0.38f, 0.01f);
         espredonda = new Esfera(gl, 0, 0, 0, maqsp.w / 2f, maqsp.h / 1.8f, maqsp.d / 3, 1f, 0.38f, 0.01f, 5, 5);
-        maqlid = new Cilindro(gl, 0, 0, 0, maquina.w / 3, 1.2f * maquina.d, maquina.h, 1f, 0.38f, 0.01f, 40, 40, 0.2f, 0.2f);
+        maqlid = new Cilindro(gl, 0, 0, 0, maquina.w / 3, 1.2f * maquina.d, maquina.h, 1f, 0.38f, 0.01f, 30, 30, 0.2f, 0.2f);
         emlidredonda = new Esfera(gl, 0, 0, 0, maqlid.w / 4.8f, maqlid.d / 18f, maqlid.h / 3.5f, 1f, 0.38f, 0.01f, 5, 5);
         lnc = new Cubo(gl, 0, 0, 0, maquina1.w / 5, maquina1.h / 8.5f, maquina1.d, 0.98f, 0.58f, 0.04f);
         lnc1 = new Cubo(gl, 0, 0, 0, maquina1.w / 6.5f, maquina1.h / 5.5f, maquina1.d, 0.55f, 0.2f, 0.08f);
@@ -411,7 +415,47 @@ public class Restaurante {
         gl.glPushMatrix();
         gl.glTranslatef(7f*w/35,-h/4,0);
         puerta.dibujarCubo();
+        
+        gl.glPushMatrix();
+        gl.glTranslatef(-puerta.w/2,0,puerta.d/2);
+        pBorde.dibujarCubo();
         gl.glPopMatrix();
+        
+        gl.glPushMatrix();
+        gl.glTranslatef(puerta.w/2,0,puerta.d/2);
+        pBorde.dibujarCubo();
+        gl.glPopMatrix();
+        
+         gl.glPushMatrix();
+        gl.glTranslatef(0,puerta.h/2,puerta.d/2);
+        gl.glScalef(6,0.13f,1);
+        pBorde.dibujarCubo();
+        gl.glPopMatrix();
+        
+        gl.glPushMatrix();
+        gl.glTranslatef(0,-puerta.h/2,puerta.d/2);
+        gl.glScalef(6f,0.3f,0.6f);
+        gl.glRotatef(90,1,0,0);        
+        pBorde.dibujarCubo();
+        gl.glPopMatrix();
+        
+        gl.glPushMatrix();
+        gl.glTranslatef(0,0,puerta.d/2);
+        gl.glScalef(6f,0.3f,0.1f);
+        gl.glRotatef(90,1,0,0);        
+        pBorde.dibujarCubo();
+        gl.glPopMatrix();
+        
+        //PUERTA S
+        gl.glPushMatrix();
+        gl.glScalef(0.1f,0.1f,0.15f);
+        suelo(3,-4f*puerta.w,6f*puerta.h,puerta.d/2,puertaS1,puertaS2,20,1,0,0);
+        gl.glPopMatrix();
+        //FIN PUERTA S
+        
+        gl.glPopMatrix();
+        
+        
         
         //Pared posterior
         paredes(15, -w / 2, -h / 2.25f, -d);
@@ -446,7 +490,7 @@ public class Restaurante {
 
         gl.glPushMatrix();
         gl.glScalef(0.95f,0.6f,0.85f);
-        suelo(5,-w/2,-h/1.2f,-1.1f*d,suelo,suelo1);
+        suelo(5,-w/2,-h/1.2f,-1.1f*d,suelo,suelo1,0,0,0,0);
         gl.glPopMatrix();
     }
 
@@ -543,7 +587,7 @@ public class Restaurante {
         //FIN MESAS SOFA
         
         //MAQUINA
-        maquina(13.5f * w / 35, -h / 2.5f, -17 * d / 18);
+        maquina(13.5f * w / 35, -h / 3.2f, -17 * d / 18);
         //FIN MAQUINA
 
     }
@@ -663,17 +707,19 @@ public class Restaurante {
         //FIN PARED FRONTAL 2
     }
     
-    public void suelo(int n, float x, float y, float z,Cubo c1, Cubo c2){
+    public void suelo(int n, float x, float y, float z,Cubo c1, Cubo c2,float ang, float x1,float y1,float z1){
         c1.w = w / n;
         c1.d = d / n;
         c2.w = w / n;
         c2.d = d / n;
         
+        gl.glPushMatrix();
+        gl.glRotatef(ang,x1,y1,z1);
         //PARED FRONTAL 1
         //FILA
         //COLOR1
         gl.glPushMatrix();
-        gl.glTranslatef(x, y, z);
+        gl.glTranslatef(x, y, z);        
         c1.dibujarCubo();
 
         for (int i = 0; i < n / 2; i++) {
@@ -776,6 +822,7 @@ public class Restaurante {
         gl.glPopMatrix();
         //FIN COLUMNAS
         //FIN PARED FRONTAL 2
+        gl.glPopMatrix();
     }
 
     public void maquina(float x, float y, float z) {

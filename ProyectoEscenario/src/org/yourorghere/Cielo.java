@@ -33,7 +33,7 @@ public class Cielo {
         
         //cielo=new Cubo(gl,0,0,0,w,h,d,0.0f,0.0f,0.25f);
         cielo=new Cuadrado(gl,0,0,0,w,h,d,0.0f,0.0f,0.1f);
-        e1=new Estrella(gl,0,0,0,1f,1.3f,0.9f,0);
+        e1=new Estrella(gl,0,0,0,0.5f,0.8f,0.4f,0);
     }
     
     

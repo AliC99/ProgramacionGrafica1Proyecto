@@ -5,6 +5,7 @@
  */
 package org.yourorghere;
 
+import com.sun.opengl.util.GLUT;
 import javax.media.opengl.GL;
 
 /**
@@ -78,7 +79,7 @@ public class Cubo {
         
         //POSTERIOR
         gl.glBegin(gl.GL_QUADS);
-        gl.glColor3f(c1,c2,c3-0.2f);
+        gl.glColor3f(c1,c2-0.1f,c3-0.2f);
         gl.glVertex3f(0-w1, 0-h1, 0-d1);
         gl.glVertex3f(0+w1, 0-h1, 0-d1);
         gl.glVertex3f(0+w1, 0+h1, 0-d1);
@@ -96,7 +97,7 @@ public class Cubo {
         
         //LATERAL DERECHA
         gl.glBegin(gl.GL_QUADS);
-        gl.glColor3f(c1,c2-0.1f,c3-0.2f);
+        gl.glColor3f(c1,c2-0.2f,c3-0.2f);
         gl.glVertex3f(0+w1, 0-h1, 0+d1);
         gl.glVertex3f(0+w1, 0-h1, 0-d1);
         gl.glVertex3f(0+w1, 0+h1, 0-d1);
@@ -104,6 +105,16 @@ public class Cubo {
         gl.glEnd();
         
     }    
+    
+    public void wireCubo(){
+        GLUT glut=new GLUT();
+        gl.glPushMatrix();
+        gl.glColor3f(c1, c2, c3);
+        gl.glScalef(w,h,d);       
+        glut.glutWireCube(1);
+        gl.glPopMatrix();
+    }
+    
     
     public void dibujarTrapecio(float r){
                

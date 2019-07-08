@@ -50,6 +50,8 @@ public class Esfera {
        
     }
     
+   
+    
     public void dibujarWireEsfera(){
         GLUT glut = new GLUT();
         gl.glPushMatrix();

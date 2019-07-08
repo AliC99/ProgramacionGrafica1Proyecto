@@ -28,11 +28,11 @@ public class Raton {
         this.h = h;
         this.d = d;
         
-        cuerpo = new Esfera(gl, 0, 0, 0, w, 2*h/3, 4*d/5, 0.8f, 0.8f, 0.8f, 18, 18);
-        orejas = new Esfera(gl, 0, 0, 0, w/3, h/5, 0.5f*d/5, 0.7f, 0.7f, 0.7f, 10, 10);
-        patas = new Esfera(gl, 0, 0, 0, w/3, h/5, 0.7f*d/5, 0.7f, 0.7f, 0.7f, 10, 10);
-        cara = new Esfera(gl, 0, 0, 0, w/2.4f, h/4, 1.2f*d/5, 0.8f, 0.8f, 0.8f, 15, 15);
-        nariz = new Esfera(gl, 0, 0, 0,cara.w/3, cara.h/3, cara.d/3, 0.7f, 0.7f, 0.7f, 10, 10);
+        cuerpo = new Esfera(gl, 0, 0, 0, w, 2*h/3, 4*d/5, 0.6f, 0.6f, 0.6f, 18, 18);
+        orejas = new Esfera(gl, 0, 0, 0, w/3, h/5, 0.5f*d/5, 0.5f, 0.5f, 0.5f, 10, 10);
+        patas = new Esfera(gl, 0, 0, 0, w/3, h/5, 0.7f*d/5, 0.5f, 0.5f, 0.5f, 10, 10);
+        cara = new Esfera(gl, 0, 0, 0, w/2.4f, h/4, 1.2f*d/5, 0.6f, 0.6f, 0.6f, 15, 15);
+        nariz = new Esfera(gl, 0, 0, 0,cara.w/3, cara.h/3, cara.d/3, 0.5f, 0.5f, 0.5f, 10, 10);
         ojos = new Esfera(gl, 0, 0, 0,cara.w/4.5f, cara.h/4.5f, cara.d/4.5f, 0.2f, 0.2f, 0.2f, 7, 7);
         cola=new Cono(gl,0,0,0,w/4,h/6,d/1.3f,0.7f, 0.7f, 0.7f,10,10);
     }
