@@ -13,13 +13,12 @@ import java.awt.event.MouseMotionListener;
  *
  * @author Alison
  */
-public class Mouseprueba implements MouseListener,MouseMotionListener {
+public class Mouseprueba implements MouseListener {
       static float trasladaZ=0;
       static float trasladaX=0;
     static float trasladaY=0;
     
-     int xInicial=0;
-     int yInicial=0;
+    
     @Override
     public void mouseClicked(MouseEvent e) {
          System.out.println(""+e.getX());
@@ -51,40 +50,6 @@ public class Mouseprueba implements MouseListener,MouseMotionListener {
     public void mouseExited(MouseEvent e) {
        
     }
-
-    @Override
-    public void mouseDragged(MouseEvent e) {
-        
-    }
-
-    @Override
-    public void mouseMoved(MouseEvent e) {
-               //Movimiento en X
-        if(xInicial > e.getX())
-        {
-            trasladaX-=0.2f;          
-        }
-
-        if(xInicial < e.getX())
-        {
-            trasladaX+=0.2f;           
-        }
-        xInicial = e.getX();
-        
-        //Movimiento en Y
-        
-        if(yInicial > e.getY())
-        {
-            trasladaY-=0.2f;          
-        }
-
-        if(yInicial < e.getY())
-        {
-            trasladaY+=0.2f;           
-        }
-        yInicial = e.getY();
-        
-        System.out.println(""+trasladaZ);
-    }
+  
     
 }

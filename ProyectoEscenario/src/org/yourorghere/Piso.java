@@ -15,6 +15,7 @@ public class Piso {
     //Cuadrado plano;
     Esfera nieve;
     Cubo plano;
+    Cubo tierra;
     GL gl;
     
     float x, y, z;
@@ -32,6 +33,7 @@ public class Piso {
         //plano=new Cuadrado(gl, 0, 0, 0, w, h, d, 0.9f, 0.9f, 1.0f);
         plano=new Cubo(gl, 0, 0, 0, w, h, d, 0.9f, 0.9f, 1.0f);
         nieve=new Esfera(gl,0,0,0,0.1f,0.1f,0.5f,0.9f, 0.9f, 1.0f,32,32);
+        tierra=new Cubo(gl, 0, 0, 0, w/3, 1.1f*h, d, 0.43f,0.25f,0.19f);
     }
     
     public void dibujarPiso(){
@@ -40,7 +42,7 @@ public class Piso {
      
     // plano.dibujarBase();
       plano.dibujarCubo();
-     
+      tierra.dibujarCubo();
 //     //Nieve
 //     //1
 //     gl.glPushMatrix();

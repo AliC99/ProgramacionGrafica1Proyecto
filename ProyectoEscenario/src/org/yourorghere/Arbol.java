@@ -15,10 +15,11 @@ public class Arbol {
 
     Cubo tronco;
     Piramide hojas;
-    Esfera luces, luces1, luces2, luces3;
+    Esfera luces, luces1, luces2, luces3,
+           nieve;
     Estrella e;
     Cubo regalo, regalo1, cinta,
-            alfombra;
+         alfombra, anieve;
 
     GL gl;
 
@@ -51,7 +52,9 @@ public class Arbol {
         regalo = new Cubo(gl, 0, 0, 0, w / 3, h / 11, d / 6, 0.3f, 0.1f, 0.1f);
         regalo1 = new Cubo(gl, 0, 0, 0, regalo.w, regalo.h, regalo.d, 0.19f, 0.84f, 0.46f);
         cinta = new Cubo(gl, 0, 0, 0, w / 4, h / 4, d / 4, 1, 0.98f, 0.52f);
-        alfombra = new Cubo(gl, 0, 0, 0, tronco.w * 5, tronco.h / 21, tronco.d * 5, 0.84f, 0.1f, 0.19f);
+        alfombra = new Cubo(gl, 0, 0, 0, tronco.w * 5, tronco.h / 21, tronco.d * 5, 0.6f,0.21f,0.22f);
+        anieve = new Cubo(gl, 0, 0, 0, alfombra.w, alfombra.h, alfombra.d/10, 0.92f,0.93f,1.0f);
+        nieve = new Esfera(gl, 0, 0, 0, anieve.w/7 , 1.3f*anieve.h, 1.5f*anieve.d, 0.92f,0.93f,1.0f, 4, 4);
         //FIN ARBOL CENTRAL
     }
 
@@ -106,18 +109,97 @@ public class Arbol {
         gl.glPushMatrix();
         gl.glTranslatef(0, -tronco.h / 2, 0);
         alfombra.dibujarCubo();
+        
+        //NIEVE ALFOMBRA
+        
+        //FRONTAL
+        gl.glPushMatrix();
+        gl.glTranslatef(0,0,alfombra.d/2);
+        anieve.dibujarCubo();
+        nieve.dibujarEsfera();
+        
+        gl.glPushMatrix();
+        gl.glTranslatef(-anieve.w/2,0,0);
+        nieve.dibujarEsfera();
+        gl.glPopMatrix();
+        
+        gl.glPushMatrix();
+        gl.glTranslatef(anieve.w/2,0,0);
+        nieve.dibujarEsfera();
+        gl.glPopMatrix();
+        
+        gl.glPopMatrix();
+        //FIN FRONTAL
+        
+        
+        //POSTERIOR
+        gl.glPushMatrix();
+        gl.glTranslatef(0,0,-alfombra.d/2);
+        anieve.dibujarCubo();
+        
+        nieve.dibujarEsfera();
+        
+        gl.glPushMatrix();
+        gl.glTranslatef(-anieve.w/2,0,0);
+        nieve.dibujarEsfera();
+        gl.glPopMatrix();
+        
+        gl.glPushMatrix();
+        gl.glTranslatef(anieve.w/2,0,0);
+        nieve.dibujarEsfera();
+        gl.glPopMatrix();
+        
+        gl.glPopMatrix();
+        //FIN POSTERIOR
+        
+        //IZQUIERDA
+        gl.glPushMatrix();
+        gl.glTranslatef(-alfombra.w/2,0,0);
+        gl.glRotatef(90,0,1,0);
+        anieve.dibujarCubo();
+        nieve.dibujarEsfera();
+        
+        gl.glPopMatrix();
+        //FIN IZQUIERDA
+        
+        //DERECHA
+        gl.glPushMatrix();
+        gl.glTranslatef(alfombra.w/2,0,0);
+        gl.glRotatef(90,0,1,0);
+        anieve.dibujarCubo();
+        nieve.dibujarEsfera();
+        gl.glPopMatrix();
+        //FIN DERECHA
+        
+        //FIN NIEVE ALFOMBRA
+        
         gl.glPopMatrix();
         //FIN ALFOMBRA
 
         //REGALOS
         gl.glPushMatrix();
         gl.glTranslatef(0, -tronco.h / 3.5f, tronco.d);
-        regalo(w / 3, h / 11, d / 6, 1, 0, 0);
+        regalo(w / 3, h / 11, d / 6, 0.62f,0.15f,0.12f);
         gl.glPopMatrix();
 
         gl.glPushMatrix();
-        gl.glTranslatef(2 * tronco.w, -tronco.h / 2.6f, tronco.d);
-        regalo(w / 3.5f, h / 11, d / 6, 0, 1, 0);
+        gl.glTranslatef(2 * tronco.w, -tronco.h / 3.5f, tronco.d);
+        regalo(w / 3.5f, h / 11, d / 6, 0.34f,0.62f,0.4f);
+        gl.glPopMatrix();
+        
+        gl.glPushMatrix();
+        gl.glTranslatef(-2 * tronco.w, -tronco.h / 3.3f, -tronco.d);
+        regalo(w / 4f, h / 14, d / 6, 0.55f, 1.0f,0.98f);
+        gl.glPopMatrix();
+        
+        gl.glPushMatrix();
+        gl.glTranslatef( tronco.w, -tronco.h / 3.9f, -tronco.d);
+        regalo(w / 4f, h / 9, d / 6, 0.6f,0.28f,0.8f);
+        gl.glPopMatrix();
+        
+        gl.glPushMatrix();
+        gl.glTranslatef( -tronco.w, -tronco.h / 3.9f, 0);
+        regalo(w / 2f, h / 10, d / 5, 0.97f,0.48f,0.87f);
         gl.glPopMatrix();
         //FIN REGALOS
 

@@ -65,7 +65,7 @@ public class Teclado implements KeyListener {
         gl.glTranslatef(0,0,trasladar);
       
         
-        System.out.println(trasladar);
+        //System.out.println(trasladar);
     }
     
     public static void rotarY(GL gl) {

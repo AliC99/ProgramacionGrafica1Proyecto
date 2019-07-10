@@ -46,8 +46,10 @@ public class Cielo {
         cielo.dibujarCuadradoxy();
         cielo.dibujarLateralDe();
         cielo.dibujarLateralIz();
+        
         gl.glPushMatrix();
-        gl.glTranslatef(0,h/2.6f,-d/2.3f);
+        Teclado.rotarY(gl);
+        gl.glTranslatef(0,h/2.6f,-d/2.3f);        
         e1.estrella();
         gl.glPopMatrix();
         gl.glPopMatrix();

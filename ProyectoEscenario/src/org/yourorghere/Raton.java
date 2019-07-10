@@ -16,10 +16,13 @@ public class Raton {
     float x,y,z;
     float w,h,d;
     
+    float ang;
+    
     Esfera cuerpo,orejas,patas, cara,nariz,ojos;
     Cono cola;
+    
 
-    public Raton(GL gl, float x, float y, float z, float w, float h, float d) {
+    public Raton(GL gl, float x, float y, float z, float w, float h, float d, float ang) {
         this.gl = gl;
         this.x = x;
         this.y = y;
@@ -27,6 +30,7 @@ public class Raton {
         this.w = w;
         this.h = h;
         this.d = d;
+        this.ang=ang;
         
         cuerpo = new Esfera(gl, 0, 0, 0, w, 2*h/3, 4*d/5, 0.6f, 0.6f, 0.6f, 18, 18);
         orejas = new Esfera(gl, 0, 0, 0, w/3, h/5, 0.5f*d/5, 0.5f, 0.5f, 0.5f, 10, 10);
@@ -41,8 +45,9 @@ public class Raton {
     gl.glPushMatrix();
     gl.glTranslatef(x,y,z);
 //    Teclado.rotarY(gl);
-        
+   
     Teclado.trasladarZ(gl);
+     gl.glRotatef(ang,0,1,0);    
     if (Teclado.getTrasladar()>20) {
             Teclado.setTrasladaX(z);
         }
