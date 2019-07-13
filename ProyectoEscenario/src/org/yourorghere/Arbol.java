@@ -48,7 +48,7 @@ public class Arbol {
         //FIN LUCES
 
         //ARBOL CENTRAL
-        e = new Estrella(gl, 0, 0, 0, 0.3f, 0.6f, 0.2f, 0);
+        e = new Estrella(gl, 0, 0, 0, 0.3f, 0.6f, 0.05f, 0);
         regalo = new Cubo(gl, 0, 0, 0, w / 3, h / 11, d / 6, 0.3f, 0.1f, 0.1f);
         regalo1 = new Cubo(gl, 0, 0, 0, regalo.w, regalo.h, regalo.d, 0.19f, 0.84f, 0.46f);
         cinta = new Cubo(gl, 0, 0, 0, w / 4, h / 4, d / 4, 1, 0.98f, 0.52f);
@@ -101,6 +101,7 @@ public class Arbol {
         //ESTRELLA
         gl.glPushMatrix();
         gl.glTranslatef(0, 2.7f * hojas.h, 0);
+        Teclado.rotarY(gl);
         e.estrella();
         gl.glPopMatrix();
         //FIN ESTRELLA

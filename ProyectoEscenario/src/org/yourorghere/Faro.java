@@ -69,11 +69,13 @@ public class Faro {
         
     }
     
+    
+    
+    
+    
     public void faro2(){
         gl.glPushMatrix();
-        gl.glTranslatef(x,y,z);
-        
-        
+        gl.glTranslatef(x,y,z);   
         gl.glPopMatrix();
     }
     

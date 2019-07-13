@@ -45,8 +45,9 @@ public class Restaurante {
 
     float x, y, z;
     float w, h, d;
+    float ang;
 
-    public Restaurante(GL gl, float x, float y, float z, float w, float h, float d) {
+    public Restaurante(GL gl, float x, float y, float z, float w, float h, float d,float ang) {
         this.gl = gl;
         this.x = x;
         this.y = y;
@@ -54,6 +55,7 @@ public class Restaurante {
         this.w = w;
         this.h = h;
         this.d = d;
+        this.ang=ang;
 
         //PAREDES
         pfp = new Cubo(gl, 0, 0, 0, w, h, d / 28, 0.51f, 0.15f, 0.03f);
@@ -162,7 +164,7 @@ public class Restaurante {
         gl.glPushMatrix();
         gl.glTranslatef(x, y, z);
         //Teclado.rotarY(gl);
-        //gl.glRotatef(45,0,1,0);
+        gl.glRotatef(ang,0,1,0);
         dibujarExterior();
 
         dibujarInterior();
@@ -171,7 +173,8 @@ public class Restaurante {
 
     public void dibujarExterior() {
         //Pared frontal        
-        paredes(15, -w / 2, -h / 2.25f, 0);
+        
+        pfp.paredes(15, pfp, pfp1,w, h, d / 28, -w / 2, -h / 2.25f, 0, 0.51f, 0.15f, 0.03f,0.25f, 0.05f, 0.02f);
 
         gl.glPushMatrix();
         gl.glTranslatef(-w / 2, -h / 2.25f, 0);
@@ -457,21 +460,21 @@ public class Restaurante {
         
         
         
-        //Pared posterior
-        paredes(15, -w / 2, -h / 2.25f, -d);
+//        Pared posterior
+          pfp.paredes(15, pfp, pfp1,w, h, d / 28, -w / 2, -h / 2.25f, -d, 0.51f, 0.15f, 0.03f,0.25f, 0.05f, 0.02f);
 
-        //Pared lateral izquierda
+//        Pared lateral izquierda
         gl.glPushMatrix();
         gl.glRotatef(90, 0, 1, 0);
-        gl.glScalef(d / w, 1, 1);
-        paredes(15, d / 305, -h / 2.25f, -w / 1.85f);
+        gl.glScalef(d / w, 1, 1);        
+        pfp.paredes(15, pfp, pfp1,w, h, d / 28, d / 305, -h / 2.25f, -w / 1.85f, 0.51f, 0.15f, 0.03f,0.25f, 0.05f, 0.02f);
         gl.glPopMatrix();
 
-        //Pared lateral izquierda
+//        Pared lateral izquierda
         gl.glPushMatrix();
         gl.glRotatef(90, 0, 1, 0);
         gl.glScalef(d / w, 1, 1);
-        paredes(15, d / 305, -h / 2.25f, w / 1.85f);
+        pfp.paredes(15, pfp, pfp1,w, h, d / 28, d / 305, -h / 2.25f, w / 1.85f, 0.51f, 0.15f, 0.03f,0.25f, 0.05f, 0.02f);
         gl.glPopMatrix();
 
         //TECHO
@@ -592,121 +595,6 @@ public class Restaurante {
 
     }
 
-    public void paredes(int n, float x, float y, float z) {
-        pfp.w = w / n;
-        pfp.h = h / n;
-        pfp1.w = w / n;
-        pfp1.h = h / n;
-
-        //PARED FRONTAL 1
-        //FILA
-        //COLOR1
-        gl.glPushMatrix();
-        gl.glTranslatef(x, y, z);
-        pfp.dibujarCubo();
-        
-        for (int i = 0; i < n / 2; i++) {
-            gl.glTranslatef(2 * pfp.w, 0, 0);
-            pfp.dibujarCubo();
-        }
-        gl.glPopMatrix();
-        //FIN COLOR1
-        //COLOR2
-        gl.glPushMatrix();
-        gl.glTranslatef(x + pfp.w, y, z);
-        pfp1.dibujarCubo();
-        for (int i = 0; i < n / 2; i++) {
-            gl.glTranslatef(2 * pfp.w, 0, 0);
-            pfp1.dibujarCubo();
-        }
-        gl.glPopMatrix();
-        //FIN COLOR2
-        //FIN FILA
-
-        //COLUMNAS
-        gl.glPushMatrix();
-        for (int j = 0; j < n / 2; j++) {
-            gl.glTranslatef(0, 2 * pfp.h, 0);
-            //COLOR1
-            gl.glPushMatrix();
-            gl.glTranslatef(x, y, z);
-            pfp.dibujarCubo();
-            for (int i = 0; i < n / 2; i++) {
-                gl.glTranslatef(2 * pfp.w, 0, 0);
-                pfp.dibujarCubo();
-            }
-            gl.glPopMatrix();
-            //FIN COLOR1
-            //COLOR2
-            gl.glPushMatrix();
-            gl.glTranslatef(x + pfp.w, y, z);
-            pfp1.dibujarCubo();
-            for (int i = 0; i < n / 2; i++) {
-                gl.glTranslatef(2 * pfp.w, 0, 0);
-                pfp1.dibujarCubo();
-            }
-            gl.glPopMatrix();
-            //FIN COLOR2
-        }
-        gl.glPopMatrix();
-        //FIN COLUMNAS
-        //FIN PARED FRONTAL 1
-
-        //PARED FRONTAL 2
-        //FILA
-        //COLOR1
-        gl.glPushMatrix();
-        gl.glTranslatef(x, y + pfp1.h, z);
-        pfp1.dibujarCubo();
-
-        for (int i = 0; i < n / 2; i++) {
-            gl.glTranslatef(2 * pfp1.w, 0, 0);
-            pfp1.dibujarCubo();
-        }
-        gl.glPopMatrix();
-        //FIN COLOR1
-        //COLOR2
-        gl.glPushMatrix();
-        gl.glTranslatef(x + pfp1.w, y + pfp1.h, z);
-        pfp.dibujarCubo();
-        for (int i = 0; i < n / 2; i++) {
-            gl.glTranslatef(2 * pfp1.w, 0, 0);
-            pfp.dibujarCubo();
-        }
-        gl.glPopMatrix();
-        //FIN COLOR2
-        //FIN FILA
-
-        //COLUMNAS
-        gl.glPushMatrix();
-        for (int j = 0; j < n / 2; j++) {
-            gl.glTranslatef(0, 2 * pfp1.h, 0);
-            //COLOR1
-            gl.glPushMatrix();
-            gl.glTranslatef(x, y + pfp.h, z);
-            pfp1.dibujarCubo();
-            for (int i = 0; i < n / 2; i++) {
-                gl.glTranslatef(2 * pfp1.w, 0, 0);
-                pfp1.dibujarCubo();
-            }
-            gl.glPopMatrix();
-            //FIN COLOR1
-            //COLOR2
-            gl.glPushMatrix();
-            gl.glTranslatef(x + pfp1.w, y + pfp.h, z);
-            pfp.dibujarCubo();
-            for (int i = 0; i < n / 2; i++) {
-                gl.glTranslatef(2 * pfp1.w, 0, 0);
-                pfp.dibujarCubo();
-            }
-            gl.glPopMatrix();
-            //FIN COLOR2
-        }
-        gl.glPopMatrix();
-        //FIN COLUMNAS
-        //FIN PARED FRONTAL 2
-    }
-    
     public void suelo(int n, float x, float y, float z,Cubo c1, Cubo c2,float ang, float x1,float y1,float z1){
         c1.w = w / n;
         c1.d = d / n;

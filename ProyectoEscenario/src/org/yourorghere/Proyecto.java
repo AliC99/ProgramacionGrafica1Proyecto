@@ -26,6 +26,10 @@ public class Proyecto implements GLEventListener {
     //Número de la cámara
     public static int ncam = 1;
 
+    static float ancho=19.0f;
+    static float largo=15.0f;
+    static float alto=0.05f;
+    
     //Creación objetos
     Piso p1;
     Arbol ac;
@@ -38,22 +42,22 @@ public class Proyecto implements GLEventListener {
     Cielo ci1;
     Persona pr1;
     Faro f1;
-//    Raton rt1;
-//    Raton rt2;
-//    Raton rt3;
+    Casa1 c1; 
+    Letrero l1;
     ArrayList<Buzon> buzon;
     ArrayList<Casa> cabania;
     ArrayList<Arbol> arbol;
     ArrayList<Raton> raton;
     ArrayList<Faro> faro1;
 
+    
     public static void main(String[] args) {
         Frame frame = new Frame("Simple JOGL Application");
         GLCanvas canvas = new GLCanvas();
 
         canvas.addGLEventListener(new Proyecto());
         frame.add(canvas);
-        frame.setSize(740, 580);
+        frame.setSize(840, 680);
         final Animator animator = new Animator(canvas);
         frame.addWindowListener(new WindowAdapter() {
 
@@ -97,26 +101,27 @@ public class Proyecto implements GLEventListener {
         drawable.addKeyListener(t);
         m = new Mouse();
         m1=new Mouseprueba();
-        drawable.addMouseMotionListener(m);
-        drawable.addMouseListener(m1);
-        ac = new Arbol(gl, 0.0f, -0.78f, -6.8f, 1.2f, 3.5f, 1.2f, 45);
-        a1 = new Arbol(gl, 0.0f, -0.48f, -10.5f, 0.95f, 3.0f, 1.0f, 20);
-        p1 = new Piso(gl, 0, -0.98f, -1.5f, 6.5f, 0.2f, 42.5f);
-        r1 = new Restaurante(gl, 0, -0.2f, -19f, 2.75f, 1.2f, 2.1f);
+//        drawable.addMouseMotionListener(m);
+//        drawable.addMouseListener(m1);
+
+        
+        ac = new Arbol(gl, 0.0f, 0, -19.8f, 1.2f, 3.5f, 1.2f, 45);        
+        p1 = new Piso(gl, 0,-alto,0, ancho, alto, largo);
+        a1 = new Arbol(gl, 0.0f, 2.35f*p1.h, -3.5f, 0.95f, 3.0f, 1.0f, 20);
+        r1 = new Restaurante(gl, 0, 11.775f*alto,-largo/2f, 2.7f, 1.15f, 2.2f,0);
         b1 = new Buzon(gl, 0, 0, 0, 0.3f, 0.7f, 0.25f, 25);
-        ci1 = new Cielo(gl, 0, 0, 0, 20f, 9.5f, 42.5f);
-        pr1 = new Persona(gl, 0, 0.5f, -1.5f, 0.6f, 0.6f, 0.6f);
-        //f1=new Faro(gl,0,0,1.0f,0.05f,0.35f,0.05f,0);
-//        rt1=new Raton(gl,-2.0f,-0.7f,-12f,0.15f,0.2f,0.3f);
-//        rt2=new Raton(gl,-2.0f,-0.7f,-22f,0.15f,0.2f,0.3f);
-//        rt3=new Raton(gl,-2.0f,-0.7f,-32f,0.15f,0.2f,0.3f);
+        ci1 = new Cielo(gl, 0, 0, 0, ancho, 9.5f, 42.5f);
+        pr1 = new Persona(gl, 0, 4*p1.h, 0, 0.2f, 0.2f, 0.2f,0);
+        c1=new Casa1(gl,ancho/35,1.5f*p1.h,-largo/35,1.7f,0.85f,0.85f,0);
+        l1=new Letrero(gl,-7.3f*ancho/16,-11*alto,largo/2.8f,0.8f,0.65f,0.1f,20);
+        
 
         //RATONES
         raton = new ArrayList<Raton>();
-        for (int i = 0; i < 3; i++) {
+        for (float i =0 ; i < 5; i++) {
             try {
-                raton.add(new Raton(gl, -1.5f, -0.7f, -i * 12f, 0.15f, 0.2f, 0.3f,-20));
-                raton.add(new Raton(gl, 1.5f, -0.7f, -i * 12f, 0.15f, 0.2f, 0.3f,20));
+                raton.add(new Raton(gl, -ancho/2, p1.h, -i * 12f, 0.07f, 0.12f, 0.18f,20));
+                raton.add(new Raton(gl, -ancho/4, p1.h, -i * 12f, 0.07f, 0.12f, 0.18f,20));
             } catch (Exception e) {
                 System.exit(0);
             }
@@ -125,19 +130,19 @@ public class Proyecto implements GLEventListener {
 
         //BUZONES 
         buzon = new ArrayList<Buzon>();
-        for (int i = 0; i < 5; i++) {
+        for (float i = -(p1.w/5f); i < 0; i++) {
             try {
-                buzon.add(new Buzon(gl, -2f, -0.63f, -i * 1.4f - 0.5f, 0.12f, 0.5f, 0.25f, 25));
-                buzon.add(new Buzon(gl, 2f, -0.63f, -i * 1.4f - 0.5f, 0.12f, 0.5f, 0.25f, -25));
+                buzon.add(new Buzon(gl, i * 1.4f-0.5f, 5f*p1.h, p1.d/30, 0.12f, 0.5f, 0.25f, -20));
+                buzon.add(new Buzon(gl, i * 1.4f-0.5f, 5f*p1.h, p1.d/4.2f, 0.12f, 0.5f, 0.25f, 20));
             } catch (Exception e) {
                 System.exit(0);
             }
         }
 
-        for (int i = 8; i < 13; i++) {
+        for (float i = p1.w/8f; i < p1.w/5f; i++) {
             try {
-                buzon.add(new Buzon(gl, -2f, -0.63f, -i * 1.4f - 0.5f, 0.12f, 0.5f, 0.25f, 25));
-                buzon.add(new Buzon(gl, 2f, -0.63f, -i * 1.4f - 0.5f, 0.12f, 0.5f, 0.25f, -25));
+                buzon.add(new Buzon(gl, i * 1.5f-0.5f, 5f*p1.h, p1.d/30, 0.12f, 0.5f, 0.25f, -20));
+                buzon.add(new Buzon(gl, i * 1.5f-0.5f, 5f*p1.h, p1.d/4.2f, 0.12f, 0.5f, 0.25f, 20));
             } catch (Exception e) {
                 System.exit(0);
             }
@@ -146,19 +151,19 @@ public class Proyecto implements GLEventListener {
 
         //FAROS
         faro1 = new ArrayList<Faro>();
-        for (int i = 0; i < 5; i++) {
+        for (float i = -(p1.w/5f); i < 0; i++) {
             try {
-                faro1.add(new Faro(gl, 1.8f, -0.35f, -i * 1.4f, 0.12f, 0.75f, 0.12f, 0));
-                faro1.add(new Faro(gl, -1.8f, -0.35f, -i * 1.4f, 0.1f, 0.75f, 0.12f, 0));
+                faro1.add(new Faro(gl, i * 1.32f, 11f*p1.h, p1.d/30, 0.12f, 0.75f, 0.12f, 0));
+                faro1.add(new Faro(gl, i * 1.32f, 11f*p1.h, p1.d/4.2f, 0.1f, 0.75f, 0.12f, 0));
             } catch (Exception e) {
                 System.exit(0);
             }
         }
 
-        for (int i = 8; i < 13; i++) {
+        for (float i = p1.w/8f; i < p1.w/5f; i++) {
             try {
-                faro1.add(new Faro(gl, 1.8f, -0.35f, -i * 1.4f, 0.12f, 0.75f, 0.12f, 0));
-                faro1.add(new Faro(gl, -1.8f, -0.35f, -i * 1.4f, 0.1f, 0.75f, 0.12f, 0));
+                faro1.add(new Faro(gl, i * 1.5f, 11f*p1.h, p1.d/30, 0.12f, 0.75f, 0.12f, 0));
+                faro1.add(new Faro(gl, i * 1.5f, 11f*p1.h, p1.d/4.2f, 0.1f, 0.75f, 0.12f, 0));
             } catch (Exception e) {
                 System.exit(0);
             }
@@ -167,19 +172,19 @@ public class Proyecto implements GLEventListener {
 
         //CASAS
         cabania = new ArrayList<Casa>();
-        for (int i = 0; i < 5; i++) {
+        for (float i = -(p1.w/5f); i < 0; i++) {
             try {
-                cabania.add(new Casa(gl, -2.6f, -0.8f, -i * 1.4f, 0.73f, 0.9f, 0.6f, 90));
-                cabania.add(new Casa(gl, 2.6f, -0.8f, -i * 1.4f, 0.73f, 0.9f, 0.6f, -90));
+                cabania.add(new Casa(gl, i * 1.4f, 1.6f*p1.h, 0, 0.73f, 0.9f, 0.6f, 0));
+                cabania.add(new Casa(gl, i * 1.4f, 1.6f*p1.h, p1.d/3.6f, 0.73f, 0.9f, 0.6f, 180));
             } catch (Exception e) {
                 System.exit(0);
             }
         }
 
-        for (int i = 8; i < 13; i++) {
+        for (float i = p1.w/8f; i < p1.w/5f; i++) {
             try {
-                cabania.add(new Casa(gl, -2.6f, -0.78f, -i * 1.4f, 0.73f, 0.9f, 0.6f, 90));
-                cabania.add(new Casa(gl, 2.6f, -0.78f, -i * 1.4f, 0.73f, 0.9f, 0.6f, -90));
+                cabania.add(new Casa(gl, i * 1.4f, 1.6f*p1.h, 0, 0.73f, 0.9f, 0.6f, 0));
+                cabania.add(new Casa(gl, i * 1.4f, 1.6f*p1.h, p1.d/3.6f, 0.73f, 0.9f, 0.6f, 180));
             } catch (Exception e) {
                 System.exit(0);
             }
@@ -190,8 +195,8 @@ public class Proyecto implements GLEventListener {
         arbol = new ArrayList<Arbol>();
         for (int i = 0; i < 16; i++) {
             try {
-                arbol.add(new Arbol(gl, -3.4f, -0.68f, -i * 1.3f, 0.7f, 1.95f, 0.6f, 45));
-                arbol.add(new Arbol(gl, 3.4f, -0.68f, -i * 1.3f, 0.7f, 1.95f, 0.6f, -45));
+                arbol.add(new Arbol(gl, -3.4f, p1.h, -i * 1.3f, 0.7f, 1.95f, 0.6f, 45));
+                arbol.add(new Arbol(gl, 3.4f,p1.h, -i * 1.3f, 0.7f, 1.95f, 0.6f, -45));
             } catch (Exception e) {
                 System.exit(0);
             }
@@ -199,8 +204,8 @@ public class Proyecto implements GLEventListener {
 
         for (int i = 0; i < 12; i++) {
             try {
-                arbol.add(new Arbol(gl, -4.4f, -0.68f, -i * 1.5f, 0.7f, 2.5f, 0.6f, 45));
-                arbol.add(new Arbol(gl, 4.4f, -0.68f, -i * 1.5f, 0.7f, 2.5f, 0.6f, -45));
+                arbol.add(new Arbol(gl, -4.4f, p1.h*1.1f, -i * 1.5f, 0.7f, 2.5f, 0.6f, 45));
+                arbol.add(new Arbol(gl, 4.4f, p1.h*1.1f, -i * 1.5f, 0.7f, 2.5f, 0.6f, -45));
             } catch (Exception e) {
                 System.exit(0);
             }
@@ -208,8 +213,8 @@ public class Proyecto implements GLEventListener {
         
         for (int i = 0; i < 12; i++) {
             try {
-                arbol.add(new Arbol(gl, -5.4f, -0.48f, -i * 1.5f, 0.7f, 2.5f, 0.6f, 45));
-                arbol.add(new Arbol(gl, 5.4f, -0.48f, -i * 1.5f, 0.7f, 2.5f, 0.6f, -45));
+                arbol.add(new Arbol(gl, -5.4f, p1.h*1.2f, -i * 1.5f, 0.7f, 2.5f, 0.6f, 45));
+                arbol.add(new Arbol(gl, 5.4f, p1.h*1.2f, -i * 1.5f, 0.7f, 2.5f, 0.6f, -45));
             } catch (Exception e) {
                 System.exit(0);
             }
@@ -245,41 +250,36 @@ public class Proyecto implements GLEventListener {
 
         //Fondo
         if (ncam == 1) {
-            glu.gluLookAt(ac.x, ac.y + 0.1f, ac.z + 1.2f, ac.x, ac.y, ac.z, 0, 1, 0);
-            //glu.gluLookAt(p1.x,p1.y+0.2f,p1.z+2.5f,p1.x,p1.y,p1.z,0,1,0);
+            glu.gluLookAt(pr1.x, pr1.y +2.5f*pr1.h, pr1.z + 1.1f, pr1.x, pr1.y, pr1.z, 0, 1, 0);
+            pr1.x = Teclado.getTrasladaX();
+            pr1.z = Teclado.getTrasladaZ();
         }
 
-//       if(ncam==2){
-//             glu.gluLookAt(b1.x,b1.y+1.0f,b1.z+2.5f,b1.x,b1.y,b1.z,0,1,0);    }
+       if(ncam==2){
+             glu.gluLookAt(pr1.x, pr1.y , pr1.z+0.5f , pr1.x, pr1.y+pr1.h, pr1.z+Teclado.getTrasladaZ(), 0, 1, 0);   
+            
+             pr1.x = Teclado.getTrasladaX();
+             pr1.z = Teclado.getTrasladaZ();
+       }
         if (ncam == 3) {
-            glu.gluLookAt(p1.x, p1.y + 12.5f, p1.z + 0.5f, p1.x, p1.y, p1.z, 0, 1, 0);
+            glu.gluLookAt(c1.puerta.x, c1.puerta.y , c1.puerta.z + 1.5f, c1.puerta.x, c1.puerta.y , c1.puerta.z, 0, 1, 0);
         }
         if (ncam == 4) {
-            glu.gluLookAt(r1.x, r1.y + 1.1f, r1.z + 3, r1.x, r1.y, r1.z, 0, 1, 0);
+            glu.gluLookAt(r1.x, r1.y + 1f, r1.z + 4, r1.x, r1.y, r1.z, 0, 1, 0);
+        }
+         if (ncam == 5) {
+            glu.gluLookAt(p1.x, p1.y+19.1f , p1.z+0.01f , p1.x, p1.y , p1.z, 0, 1, 0);
         }
 
-        //Dibujar objetos  
+        
         gl.glPushMatrix();
-        ac.x = Teclado.getTrasladaX();
-        ac.y = Teclado.getTrasladaY();
-        ac.z = Teclado.getTrasladaZ();
-
-        //MOVIMIENTO MOUSE
-//       ac.z=Mouseprueba.trasladaZ;
-//      
-//       ac.x=Mouse.trasladaX;
-//       ac.y=Mouse.trasladaY;
-        //FIN MOVIMIENTO MOUSE     
-
-        //ac.dibujarArbol();
-        gl.glPopMatrix();
-
+        gl.glTranslatef(p1.x,p1.y,p1.z);
         for (Casa c : cabania) {
             c.dibujarCasa();
         }
-        for (Arbol a : arbol) {
-            a.dibujarArbol();
-        }
+//        for (Arbol a : arbol) {
+//            a.dibujarArbol();
+//        }
         for (Raton r : raton) {
             r.raton();
         }
@@ -289,13 +289,20 @@ public class Proyecto implements GLEventListener {
         for (Faro f : faro1) {
             f.faro1();
         }
-
-        a1.arbolCentral();
+//        
+//        a1.arbolCentral();
         p1.dibujarPiso();
         r1.dibujarRestaurante();
-        ci1.noche();
+        //ci1.noche();
         pr1.dibujarPersona();
+        c1.casa1();
+        l1.letrero();
+        
+        gl.glPopMatrix();
 
+        
+
+        
         // Flush all drawing operations to the graphics card
         gl.glFlush();
     }

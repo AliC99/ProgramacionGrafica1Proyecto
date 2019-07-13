@@ -181,5 +181,138 @@ public class Cubo {
     }
     
      
+    //CUBO CON PATRÓN
+        public void paredes(int n, Cubo ca, Cubo cb, float w, float h, float d,float x, float y, float z, float r, float g, float b, float r1, float g1, float b1) {
+        
+        
+        
+        ca.w = w / n;
+        ca.h = h / n;
+        cb.w = w / n;
+        cb.h = h / n;
+
+        
+        //ASIGNAR COLORES
+        ca.c1=r;
+        ca.c2=g;
+        ca.c3=b;
+        
+        cb.c1=r1;
+        cb.c2=g1;
+        cb.c3=b1;
+        //FIN ASIGNAR COLORES
+        
+        
+        //PARED FRONTAL 1
+        //FILA
+        //COLOR1
+        gl.glPushMatrix();
+        gl.glTranslatef(x, y, z);
+        ca.dibujarCubo();
+        
+        for (int i = 0; i < n / 2; i++) {
+            gl.glTranslatef(2 * ca.w, 0, 0);
+            ca.dibujarCubo();
+        }
+        gl.glPopMatrix();
+        //FIN COLOR1
+        //COLOR2
+        gl.glPushMatrix();
+        gl.glTranslatef(x + ca.w, y, z);
+        cb.dibujarCubo();
+        for (int i = 0; i < n / 2; i++) {
+            gl.glTranslatef(2 * ca.w, 0, 0);
+            cb.dibujarCubo();
+        }
+        gl.glPopMatrix();
+        //FIN COLOR2
+        //FIN FILA
+
+        //COLUMNAS
+        gl.glPushMatrix();
+        for (int j = 0; j < n / 2; j++) {
+            gl.glTranslatef(0, 2 * ca.h, 0);
+            //COLOR1
+            gl.glPushMatrix();
+            gl.glTranslatef(x, y, z);
+            ca.dibujarCubo();
+            for (int i = 0; i < n / 2; i++) {
+                gl.glTranslatef(2 * ca.w, 0, 0);
+                ca.dibujarCubo();
+            }
+            gl.glPopMatrix();
+            //FIN COLOR1
+            //COLOR2
+            gl.glPushMatrix();
+            gl.glTranslatef(x + ca.w, y, z);
+            cb.dibujarCubo();
+            for (int i = 0; i < n / 2; i++) {
+                gl.glTranslatef(2 * ca.w, 0, 0);
+                cb.dibujarCubo();
+            }
+            gl.glPopMatrix();
+            //FIN COLOR2
+        }
+        gl.glPopMatrix();
+        //FIN COLUMNAS
+        //FIN PARED FRONTAL 1
+
+        //PARED FRONTAL 2
+        //FILA
+        //COLOR1
+        gl.glPushMatrix();
+        gl.glTranslatef(x, y + cb.h, z);
+        cb.dibujarCubo();
+
+        for (int i = 0; i < n / 2; i++) {
+            gl.glTranslatef(2 * cb.w, 0, 0);
+            cb.dibujarCubo();
+        }
+        gl.glPopMatrix();
+        //FIN COLOR1
+        //COLOR2
+        gl.glPushMatrix();
+        gl.glTranslatef(x + cb.w, y + cb.h, z);
+        ca.dibujarCubo();
+        for (int i = 0; i < n / 2; i++) {
+            gl.glTranslatef(2 * cb.w, 0, 0);
+            ca.dibujarCubo();
+        }
+        gl.glPopMatrix();
+        //FIN COLOR2
+        //FIN FILA
+
+        //COLUMNAS
+        gl.glPushMatrix();
+        for (int j = 0; j < n / 2; j++) {
+            gl.glTranslatef(0, 2 * cb.h, 0);
+            //COLOR1
+            gl.glPushMatrix();
+            gl.glTranslatef(x, y + ca.h, z);
+            cb.dibujarCubo();
+            for (int i = 0; i < n / 2; i++) {
+                gl.glTranslatef(2 * cb.w, 0, 0);
+                cb.dibujarCubo();
+            }
+            gl.glPopMatrix();
+            //FIN COLOR1
+            //COLOR2
+            gl.glPushMatrix();
+            gl.glTranslatef(x + cb.w, y + ca.h, z);
+            ca.dibujarCubo();
+            for (int i = 0; i < n / 2; i++) {
+                gl.glTranslatef(2 * cb.w, 0, 0);
+                ca.dibujarCubo();
+            }
+            gl.glPopMatrix();
+            //FIN COLOR2
+        }
+        gl.glPopMatrix();
+        //FIN COLUMNAS
+        //FIN PARED FRONTAL 2
+    }
+    //FIN CUBO CON PATRÓN
+    
+    
     
 }

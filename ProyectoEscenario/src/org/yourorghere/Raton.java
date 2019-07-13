@@ -48,7 +48,7 @@ public class Raton {
    
     Teclado.trasladarZ(gl);
      gl.glRotatef(ang,0,1,0);    
-    if (Teclado.getTrasladar()>20) {
+    if (Teclado.getTrasladar()<-20) {
             Teclado.setTrasladaX(z);
         }
     cuerpo.dibujarEsfera();

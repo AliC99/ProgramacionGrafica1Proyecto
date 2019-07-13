@@ -37,6 +37,7 @@ public class Estrella {
     public void estrella(){
         gl.glPushMatrix();
         gl.glTranslatef(x,y,z);
+        gl.glRotatef(ang,0,1,0);
         
         //PUNTA SUPERIOR
         gl.glPushMatrix();
