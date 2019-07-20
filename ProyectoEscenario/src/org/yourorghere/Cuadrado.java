@@ -77,6 +77,23 @@ public class Cuadrado {
         gl.glEnd();
     }
 
+        
+        public void dibujarCuadradoxy(float i) {
+        gl.glTranslatef(x,y,z);
+        float w1 = w / 2;
+        float h1 = h / 2;
+        float d1 = d / 2;
+        gl.glBegin(gl.GL_QUADS);
+        gl.glColor3f(c1, c2, c3);
+        gl.glVertex3f(0 - w1, 0 - h1, 0 - d1);     
+        gl.glVertex3f(0 + w1, 0 - h1, 0 - d1);
+        gl.glColor3f(c1+i, c2+i, c3+i);
+        gl.glVertex3f(0 + w1, 0 + h1, 0 - d1);
+        gl.glVertex3f(0 - w1, 0 + h1, 0 - d1);
+        gl.glEnd();
+    }    
+        
+        
     public void dibujarLateralIz() {
          gl.glTranslatef(x,y,z);
         float w1 = w / 2;

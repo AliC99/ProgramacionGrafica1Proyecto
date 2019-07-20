@@ -22,10 +22,13 @@ public class Teclado implements KeyListener {
     }
     
     public static boolean validarFaro=false;
+    public static boolean validarGiro=false;
+    public static boolean validarGiroid=true;
 
-    private static float trasladaX = -6.5f*Proyecto.ancho/16;
-    private static float trasladaY = 0;
-    private static float trasladaZ =Proyecto.largo/2.2f;
+     static float trasladaX = 0;
+     static float trasladaY = 8*Proyecto.alto;
+//     static float trasladaZ =-Proyecto.largo/2.2f;
+     static float trasladaZ =1.5f;
 
     private static float escalaX = 1;
     private static float escalaY = 1;
@@ -39,6 +42,10 @@ public class Teclado implements KeyListener {
     public static float getTrasladar(){
         return trasladar;
     }
+     public static void setTrasladar(float t) {
+       trasladar=t;
+       
+     }
     
     public static float getTrasladaX() {
         return trasladaX;
@@ -48,6 +55,9 @@ public class Teclado implements KeyListener {
        trasladar=t;
     }
      
+      public static void setTrasladaZ(float t) {
+       trasladaZ=t;
+    }
     public static float getTrasladaY() {
         return trasladaY;
     }
@@ -62,10 +72,7 @@ public class Teclado implements KeyListener {
 
     public static void trasladarZ(GL gl){
         trasladar+=0.05f;
-        gl.glTranslatef(0,0,trasladar);
-      
-        
-        //System.out.println(trasladar);
+        gl.glTranslatef(0,0,trasladar);       
     }
     
     public static void rotarY(GL gl) {
@@ -77,6 +84,16 @@ public class Teclado implements KeyListener {
         rotarY += ang;
         gl.glRotatef(rotarY, 0, 1, 0);
     }
+     
+     public static float nieve=30*Proyecto.alto;
+     
+     public static float trasX=0;
+     
+      public static void trasladaX(GL gl) {
+        trasX +=0.05f ;
+        gl.glTranslatef( trasX, 0, 0);
+    }
+     
      
     public static void rotarZ(GL gl) {
         rotarZ += 5.0f;
@@ -116,35 +133,67 @@ public class Teclado implements KeyListener {
             Proyecto.ncam = 5;
         }
     }
+    
 
+    public static void color() throws InterruptedException{
+         
+        while(Proyecto.cp<=1){
+//            Thread.sleep(50);
+            Proyecto.cp+=0.01f;           
+            System.out.println(Proyecto.cp);
+        }
+    }
+    
+    static boolean probar=false;
+    
     @Override
     public void keyPressed(KeyEvent e) {
+        
+             if (e.getKeyCode()==KeyEvent.VK_G) {
+               Proyecto.cp+=0.07f;
+             }
+            
+              if (e.getKeyCode()==KeyEvent.VK_C) {
+               probar=true;
+             }
+              
+               if (e.getKeyCode()==KeyEvent.VK_V) {
+               probar=false;
+             }
+        
             if (e.getKeyCode()==KeyEvent.VK_W) {
-                if (trasladaZ<0.76f &&trasladaZ>-2.78f && trasladaX<6f) {
-                    trasladaZ=trasladaZ;
-                }else if (trasladaZ<-7.23f && trasladaZ>-7.5f && trasladaX>0.65f) {
-                     trasladaZ=trasladaZ;
-                }else if (trasladaZ<-7.23f && trasladaZ>-7.5f && trasladaX<0.41f) {
-                     trasladaZ=trasladaZ;
-                }else{
-                    trasladaZ-=0.05f;
-                }
-                
-                System.out.println(""+trasladaZ);
+                validarGiro=false;
+//                if (trasladaZ<0.76f &&trasladaZ>-2.78f && trasladaX<6f) {
+//                    trasladaZ=trasladaZ;
+//                }else if (trasladaZ<-7.23f && trasladaZ>-7.5f && trasladaX>0.65f) {
+//                     trasladaZ=trasladaZ;
+//                }else if (trasladaZ<-7.23f && trasladaZ>-7.5f && trasladaX<0.41f) {
+//                     trasladaZ=trasladaZ;
+//                }else{
+//                    trasladaZ-=0.05f;
+//                }
+                trasladaZ-=0.05f;
+
+                //System.out.println(""+trasladaZ);
             }
             if (e.getKeyCode()==KeyEvent.VK_S) {
-                if (trasladaZ>=6.86f ) {
-                    trasladaZ=trasladaZ;
-                }else if (trasladaZ>3.45f && trasladaX>-6.11f ) {
-                    trasladaZ=trasladaZ;
-                }else{
-                    trasladaZ+=0.05f;
-                }
+                validarGiro=true;
+//                if (trasladaZ>=6.86f ) {
+//                    trasladaZ=trasladaZ;
+//                }else if (trasladaZ>3.45f && trasladaX>-6.11f ) {
+//                    trasladaZ=trasladaZ;
+//                }else if ( trasladaZ<0.4f && trasladaZ>-3 && trasladaX<6 ) {
+//                    trasladaZ=trasladaZ;
+//                }else{
+//                    trasladaZ+=0.05f;
+//                }
                 
-                System.out.println(""+trasladaZ);
+                trasladaZ+=0.05f;
+                
+                //System.out.println(""+trasladaZ);
             }
             if (e.getKeyCode()==KeyEvent.VK_A) {
-                
+                validarGiroid=false;
                 if (trasladaX<-9.26f) {
                     trasladaX=trasladaX;
                 }else if (trasladaX<6.18f && trasladaZ<0.76f &&trasladaZ>-2.78f) {
@@ -153,19 +202,19 @@ public class Teclado implements KeyListener {
                     trasladaX-=0.05f;
                 }
                 
-                System.out.println(""+trasladaX);
+                //System.out.println(""+trasladaX);
             }
             if (e.getKeyCode()==KeyEvent.VK_D) {
-                
-                if (trasladaX>9.08f) {
-                    trasladaX=trasladaX;
-                }else if (trasladaX>-6.11f && trasladaZ>3.5f) {
-                    trasladaX=trasladaX;
-                }else{
-                trasladaX+=0.05f;    
-                }
-                
-                System.out.println(""+trasladaX);
+                validarGiroid=true;
+//                if (trasladaX>9.08f) {
+//                    trasladaX=trasladaX;
+//                }else if (trasladaX>-6.11f && trasladaZ>3.5f) {
+//                    trasladaX=trasladaX;
+//                }else{
+//                trasladaX+=0.05f;    
+//                }
+                trasladaX+=0.05f; 
+                //System.out.println(""+trasladaX);
             }
             
             

@@ -17,13 +17,16 @@ public class Restaurante {
             techo, nieve, suelo, suelo1,
             mesa, pata,
             barra, barra2, cuerpo1, cuerpo2,
-            estante, cuerpoepf, cuerpoeid,            
+            estante, cuerpoepf, cuerpoeid,
             sofa1, sofap1,
             botellacb,
             botellacb1,
             botellacb2,
             maquina, maquina1, lineamq, maqsp, lnc, lnc1,
-            puerta, pBorde, letrero, letra,puertaS1,puertaS2;
+            puerta, pBorde, letrero, letra, puertaS1, puertaS2,
+            ventana, marco, puertav,
+            carta, figura,
+            puertai, marcopi, ventanapi,manija,mventanapi;
     Esfera tablero, tablerop,
             eredonda,
             ebredonda,
@@ -34,12 +37,14 @@ public class Restaurante {
             botella,
             botella1,
             botella2,
-            emqredonda, emqredonda1, cuerpomq, espredonda, emlidredonda;
+            emqredonda, emqredonda1, cuerpomq, espredonda, emlidredonda,
+            eventanapi;
     Cilindro patas, borde,
             botellac, botellat, botellacn,
             botellac1, botellat1, botellacn1,
             botellac2, botellat2, botellacn2,
-            maqlid;
+            maqlid,
+            vaso;
     Torus maqc;
     GL gl;
 
@@ -47,7 +52,7 @@ public class Restaurante {
     float w, h, d;
     float ang;
 
-    public Restaurante(GL gl, float x, float y, float z, float w, float h, float d,float ang) {
+    public Restaurante(GL gl, float x, float y, float z, float w, float h, float d, float ang) {
         this.gl = gl;
         this.x = x;
         this.y = y;
@@ -55,51 +60,72 @@ public class Restaurante {
         this.w = w;
         this.h = h;
         this.d = d;
-        this.ang=ang;
+        this.ang = ang;
 
         //PAREDES
         pfp = new Cubo(gl, 0, 0, 0, w, h, d / 28, 0.51f, 0.15f, 0.03f);
         pfp1 = new Cubo(gl, 0, 0, 0, w, h, d / 28, 0.25f, 0.05f, 0.02f);
         techo = new Cubo(gl, 0, 0, 0, 1.2f * w, h / 15, 1.2f * d, 0.16f, 0.02f, 0.02f);
         nieve = new Cubo(gl, 0, 0, 0, 1.2f * w, h / 18, 1.2f * d, 0.9f, 0.9f, 1.0f);
-        suelo = new Cubo(gl, 0, 0, 0, w , h / 30, d/2 , 0.78f, 0.33f, 0.004f);
-        suelo1 = new Cubo(gl, 0, 0, 0, w , h / 30, d/2 , 0.61f, 0.14f, 0.0f);
-        //FIN PAREDES
-        
-        //PUERTA
-        puerta = new Cubo(gl, 0, 0, 0, w/7.5f , h / 2.2f, d/25 , 0.47f, 0.25f, 0.09f);
-        puertaS1 = new Cubo(gl, 0, 0, 0, puerta.w , puerta.h/3, puerta.d , 0.79f,0.05f,0.06f);
-        puertaS2 = new Cubo(gl, 0, 0, 0, puerta.w , puerta.h/3, puerta.d , 1,0.93f,0.89f);
-        pBorde = new Cubo(gl, 0, 0, 0, puerta.w/5 , puerta.h, 1.3f*puerta.d , 0.37f, 0.15f, 0.0f);        
-        //FIN PUERTA
-        
-        //LETRERO
-        letrero = new Cubo(gl, 0, 0, 0, w , h / 4, d/10 , 0.29f, 0.07f, 0.06f);
-        letra = new Cubo(gl, 0, 0, 0, letrero.w/48 , letrero.h/1.1f, letrero.d/3 , 0.87f, 0.8f, 0.45f);
-        //FIN LETRERO
-        
+        suelo = new Cubo(gl, 0, 0, 0, w, h / 30, d / 2, 0.78f, 0.33f, 0.004f);
+        suelo1 = new Cubo(gl, 0, 0, 0, w, h / 30, d / 2, 0.61f, 0.14f, 0.0f);
         //FIN PAREDES
 
+        //VENTANA
+        ventana = new Cubo(gl, 0, 0, 0, w / 2.9f, h / 2.2f, d / 25, 0.7f, 0.7f, 1.0f);
+        marco = new Cubo(gl, 0, 0, 0, ventana.w / 12, ventana.h, ventana.d, 0.6f, 0.4f, 0.3f);
+        puertav = new Cubo(gl, 0, 0, 0, ventana.w / 2, 1.1f * ventana.h, ventana.d / 1.5f, 0.6f, 0.3f, 0.2f);
+        //FIN VENTANA
+
+        //PUERTA INTERIOR
+        puertai = new Cubo(gl, 0, 0, 0, w / 6, h/1.5f, d/45, 0.67f, 0.23f, 0.05f);
+        marcopi = new Cubo(gl, 0, 0, 0, puertai.w / 7f, puertai.h, puertai.d, 0.75f, 0.35f, 0.0f);
+        ventanapi = new Cubo(gl, 0, 0, 0, puertai.w / 2.5f, puertai.h/5f, puertai.d / 1.5f, 1.0f, 0.6f, 0.0f);
+        eventanapi  = new Esfera(gl, 0, 0, 0, ventanapi.w/1.9f, ventanapi.h/2, ventanapi.d, 1.0f, 0.6f, 0.0f, 10, 10);
+        manija = new Cubo(gl, 0, 0, 0,puertai.w/10, puertai.h/5, puertai.d, 0.3f,0.07f,0.02f);
+        mventanapi = new Cubo(gl, 0, 0, 0, ventanapi.w / 11f, 1.4f*ventanapi.h, ventanapi.d , 0.78f,0.33f,0.004f);
+        //FIN PUERTA INTERIOR
+
+        //PUERTA
+        puerta = new Cubo(gl, 0, 0, 0, w / 7.5f, h / 2.2f, d / 25, 0.47f, 0.25f, 0.09f);
+        puertaS1 = new Cubo(gl, 0, 0, 0, puerta.w, puerta.h / 3, puerta.d, 0.79f, 0.05f, 0.06f);
+        puertaS2 = new Cubo(gl, 0, 0, 0, puerta.w, puerta.h / 3, puerta.d, 1, 0.93f, 0.89f);
+        pBorde = new Cubo(gl, 0, 0, 0, puerta.w / 5, puerta.h, 1.3f * puerta.d, 0.37f, 0.15f, 0.0f);
+        //FIN PUERTA
+
+        //LETRERO
+        letrero = new Cubo(gl, 0, 0, 0, w, h / 4, d / 10, 0.29f, 0.07f, 0.06f);
+        letra = new Cubo(gl, 0, 0, 0, letrero.w / 48, letrero.h / 1.1f, letrero.d / 3, 0.87f, 0.8f, 0.45f);
+        //FIN LETRERO
+
+        //FIN PAREDES
         //MESAS
         //MESA REDONDA
         tablero = new Esfera(gl, 0, 0, 0, 3.5f * w / 35, h / 20, d / 9, 1.0f, 0.44f, 0.0f, 10, 10);
         tablerop = new Esfera(gl, 0, 0, 0, 3.5f * w / 35, h / 20, d / 9, 0.29f, 0.07f, 0.06f, 5, 5);
-        patas = new Cilindro(gl, 0, 0, 0, 0.15f, 0.15f, 0.35f, 0.29f, 0.07f, 0.06f, 40, 40, 0.2f, 0.2f);
+        patas = new Cilindro(gl, 0, 0, 0, 0.15f, 0.15f, 0.35f, 0.29f, 0.07f, 0.06f, 30, 30, 0.2f, 0.2f);
         borde = new Cilindro(gl, 0, 0, 0, 3.5f * w / 35, d / 9, h / 20, 0.29f, 0.07f, 0.06f, 40, 40, 1f, 1f);
+
         //FIN MESA REDONDA
+        //CARTAS
+        carta = new Cubo(gl, 0, 0, 0, tablero.w / 4, tablero.h / 10f, tablero.d / 5, 0.9f, 0.8f, 0.8f);
+        figura = new Cubo(gl, 0, 0, 0, carta.w / 3.1f, 1.1f * carta.h, carta.d / 2.8f, 1.0f, 0.0f, 0.1f);
+        //FIN CARTAS
 
         //MESA CUADRADA
         mesa = new Cubo(gl, 0, 0, 0, 7 * w / 35, h / 20, 3.5f * d / 18, 1.0f, 0.44f, 0.0f);
         eredonda = new Esfera(gl, 0, 0, 0, w / 45, h / 30, mesa.d / 1.95f, 1.0f, 0.44f, 0.0f, 10, 10);
         //FIN MESA CUADRADA 
 
+        //VASO
+        vaso = new Cilindro(gl, 0, 0, 0, mesa.w / 19f, mesa.d / 12, mesa.h, 0.7f, 0.1f, 0.2f, 25, 25, 1f, 1f);
+        //FIN VASO
+
         //PATA
-        pata = new Cubo(gl, 0, 0, 0, mesa.w, mesa.h*5.5f, mesa.d/5, 0.29f, 0.07f, 0.06f);
+        pata = new Cubo(gl, 0, 0, 0, mesa.w, mesa.h * 5.5f, mesa.d / 5, 0.29f, 0.07f, 0.06f);
         //FIN PATA 
-        
+
         ///FIN MESAS
-        
-        
         //BARRA
         barra = new Cubo(gl, 0, 0, 0, 12.5f * w / 35, h / 20, d / 9, 1.0f, 0.44f, 0.0f);
         ebredonda = new Esfera(gl, 0, 0, 0, w / 45, h / 30, barra.d / 1.8f, 1.0f, 0.44f, 0.0f, 5, 5);
@@ -158,13 +184,14 @@ public class Restaurante {
         lnc = new Cubo(gl, 0, 0, 0, maquina1.w / 5, maquina1.h / 8.5f, maquina1.d, 0.98f, 0.58f, 0.04f);
         lnc1 = new Cubo(gl, 0, 0, 0, maquina1.w / 6.5f, maquina1.h / 5.5f, maquina1.d, 0.55f, 0.2f, 0.08f);
         //FIN MAQUINA
+
     }
 
     public void dibujarRestaurante() {
         gl.glPushMatrix();
         gl.glTranslatef(x, y, z);
         //Teclado.rotarY(gl);
-        gl.glRotatef(ang,0,1,0);
+        gl.glRotatef(ang, 0, 1, 0);
         dibujarExterior();
 
         dibujarInterior();
@@ -173,331 +200,384 @@ public class Restaurante {
 
     public void dibujarExterior() {
         //Pared frontal        
-        
-        pfp.paredes(15, pfp, pfp1,w, h, d / 28, -w / 2, -h / 2.25f, 0, 0.51f, 0.15f, 0.03f,0.25f, 0.05f, 0.02f);
+
+        pfp.paredes(15, pfp, pfp1, w, h, d / 28, -w / 2, -h / 2.25f, 0, 0.51f, 0.15f, 0.03f, 0.25f, 0.05f, 0.02f);
 
         gl.glPushMatrix();
         gl.glTranslatef(-w / 2, -h / 2.25f, 0);
+
+        //LETRERO
         gl.glPushMatrix();
-        gl.glTranslatef(9.9f*w/20,h/1.2f,d/10);
+        gl.glTranslatef(9.9f * w / 20, h / 1.2f, d / 10);
         letrero.dibujarCubo();
-        
+
         gl.glPushMatrix();
-        gl.glTranslatef(-letrero.w/2.8f,0,letrero.d/2.3f);       
+        gl.glTranslatef(-letrero.w / 2.8f, 0, letrero.d / 2.3f);
         //G
         letra.dibujarCubo();
-        
+
         gl.glPushMatrix();
-        gl.glTranslatef(letra.w/1.2f,letra.h/2.5f,0);
-        gl.glScalef(0.68f,1,1);
-        gl.glRotatef(90,0,0,1);
+        gl.glTranslatef(letra.w / 1.2f, letra.h / 2.5f, 0);
+        gl.glScalef(0.68f, 1, 1);
+        gl.glRotatef(90, 0, 0, 1);
         letra.dibujarCubo();
         gl.glPopMatrix();
-        
+
         gl.glPushMatrix();
-        gl.glTranslatef(letra.w/1.2f,-letra.h/2.5f,0);
-        gl.glScalef(0.68f,1,1);
-        gl.glRotatef(90,0,0,1);
+        gl.glTranslatef(letra.w / 1.2f, -letra.h / 2.5f, 0);
+        gl.glScalef(0.68f, 1, 1);
+        gl.glRotatef(90, 0, 0, 1);
         letra.dibujarCubo();
         gl.glPopMatrix();
-        
+
         gl.glPushMatrix();
-        gl.glTranslatef(2*letra.w,-letra.h/4.5f,0);
-        gl.glScalef(1,0.5f,1);        
+        gl.glTranslatef(2 * letra.w, -letra.h / 4.5f, 0);
+        gl.glScalef(1, 0.5f, 1);
         letra.dibujarCubo();
         gl.glPopMatrix();
-        
-        
-         gl.glPushMatrix();
-        gl.glTranslatef(1.5f*letra.w,-letra.h/18,0);
-        gl.glScalef(0.2f,1,1);
-        gl.glRotatef(90,0,0,1);
+
+        gl.glPushMatrix();
+        gl.glTranslatef(1.5f * letra.w, -letra.h / 18, 0);
+        gl.glScalef(0.2f, 1, 1);
+        gl.glRotatef(90, 0, 0, 1);
         letra.dibujarCubo();
         gl.glPopMatrix();
         //FIN G
-        
+
         //R
         gl.glPushMatrix();
-        gl.glTranslatef(4.7f*letra.w,0,0);
+        gl.glTranslatef(4.7f * letra.w, 0, 0);
         letra.dibujarCubo();
         gl.glPopMatrix();
-        
+
         gl.glPushMatrix();
-        gl.glTranslatef(letra.w/1.2f,letra.h/2.5f,0);
-        gl.glScalef(0.68f,1,1);
-        gl.glRotatef(90,0,0,1);
+        gl.glTranslatef(letra.w / 1.2f, letra.h / 2.5f, 0);
+        gl.glScalef(0.68f, 1, 1);
+        gl.glRotatef(90, 0, 0, 1);
         letra.dibujarCubo();
         gl.glPopMatrix();
-        
+
         gl.glPushMatrix();
-        gl.glTranslatef(6*letra.w,letra.h/2.5f,0);
-        gl.glScalef(0.5f,1,1);
-        gl.glRotatef(90,0,0,1);
+        gl.glTranslatef(6 * letra.w, letra.h / 2.5f, 0);
+        gl.glScalef(0.5f, 1, 1);
+        gl.glRotatef(90, 0, 0, 1);
         letra.dibujarCubo();
         gl.glPopMatrix();
-        
+
         gl.glPushMatrix();
-        gl.glTranslatef(6*letra.w,letra.h/12f,0);
-        gl.glScalef(0.5f,1,1);
-        gl.glRotatef(90,0,0,1);
+        gl.glTranslatef(6 * letra.w, letra.h / 12f, 0);
+        gl.glScalef(0.5f, 1, 1);
+        gl.glRotatef(90, 0, 0, 1);
         letra.dibujarCubo();
         gl.glPopMatrix();
-        
-         gl.glPushMatrix();
-        gl.glTranslatef(6*letra.w,-letra.h/8f,0);
-        gl.glScalef(0.5f,1,1);
-        gl.glRotatef(-120,0,0,1);
-        letra.dibujarCubo();
-        gl.glPopMatrix();
-        
+
         gl.glPushMatrix();
-        gl.glTranslatef(6.8f*letra.w,letra.h/5f,0);
-        gl.glScalef(1f,0.4f,1);        
+        gl.glTranslatef(6 * letra.w, -letra.h / 8f, 0);
+        gl.glScalef(0.5f, 1, 1);
+        gl.glRotatef(-120, 0, 0, 1);
+        letra.dibujarCubo();
+        gl.glPopMatrix();
+
+        gl.glPushMatrix();
+        gl.glTranslatef(6.8f * letra.w, letra.h / 5f, 0);
+        gl.glScalef(1f, 0.4f, 1);
         letra.dibujarCubo();
         gl.glPopMatrix();
         //FIN R
-        
+
         //I
-        
         gl.glPushMatrix();
-        gl.glTranslatef(9.3f*letra.w,0,0);
+        gl.glTranslatef(9.3f * letra.w, 0, 0);
         letra.dibujarCubo();
         gl.glPopMatrix();
-        
+
         gl.glPushMatrix();
-        gl.glTranslatef(9.3f*letra.w,letra.h/2.4f,0);
-        gl.glScalef(0.4f,1,1);
-        gl.glRotatef(90,0,0,1);
+        gl.glTranslatef(9.3f * letra.w, letra.h / 2.4f, 0);
+        gl.glScalef(0.4f, 1, 1);
+        gl.glRotatef(90, 0, 0, 1);
         letra.dibujarCubo();
         gl.glPopMatrix();
-        
+
         gl.glPushMatrix();
-        gl.glTranslatef(9.3f*letra.w,-letra.h/2.4f,0);
-        gl.glScalef(0.4f,1,1);
-        gl.glRotatef(90,0,0,1);
+        gl.glTranslatef(9.3f * letra.w, -letra.h / 2.4f, 0);
+        gl.glScalef(0.4f, 1, 1);
+        gl.glRotatef(90, 0, 0, 1);
         letra.dibujarCubo();
         gl.glPopMatrix();
-        
+
         //FIN I
-        
         //L1
         gl.glPushMatrix();
-        gl.glTranslatef(12.3f*letra.w,0,0);
+        gl.glTranslatef(12.3f * letra.w, 0, 0);
         letra.dibujarCubo();
         gl.glPopMatrix();
-        
+
         gl.glPushMatrix();
-        gl.glTranslatef(13.6f*letra.w,-letra.h/2.6f,0);
-        gl.glScalef(0.5f,1,1);
-        gl.glRotatef(90,0,0,1);
+        gl.glTranslatef(13.6f * letra.w, -letra.h / 2.6f, 0);
+        gl.glScalef(0.5f, 1, 1);
+        gl.glRotatef(90, 0, 0, 1);
         letra.dibujarCubo();
         gl.glPopMatrix();
         //FIN L1
-        
+
         //L2
         gl.glPushMatrix();
-        gl.glTranslatef(16.3f*letra.w,0,0);
+        gl.glTranslatef(16.3f * letra.w, 0, 0);
         letra.dibujarCubo();
         gl.glPopMatrix();
-        
+
         gl.glPushMatrix();
-        gl.glTranslatef(17.6f*letra.w,-letra.h/2.6f,0);
-        gl.glScalef(0.5f,1,1);
-        gl.glRotatef(90,0,0,1);
+        gl.glTranslatef(17.6f * letra.w, -letra.h / 2.6f, 0);
+        gl.glScalef(0.5f, 1, 1);
+        gl.glRotatef(90, 0, 0, 1);
         letra.dibujarCubo();
         gl.glPopMatrix();
         //FIN L2
-        
+
         //B
         gl.glPushMatrix();
-        gl.glTranslatef(20.3f*letra.w,0,0);
+        gl.glTranslatef(20.3f * letra.w, 0, 0);
         letra.dibujarCubo();
         gl.glPopMatrix();
-        
+
         gl.glPushMatrix();
-        gl.glTranslatef(22.3f*letra.w,0,0);
+        gl.glTranslatef(22.3f * letra.w, 0, 0);
         letra.dibujarCubo();
         gl.glPopMatrix();
-        
+
         gl.glPushMatrix();
-        gl.glTranslatef(21.6f*letra.w,0,0);
-        gl.glScalef(0.4f,1,1);
-        gl.glRotatef(90,0,0,1);
+        gl.glTranslatef(21.6f * letra.w, 0, 0);
+        gl.glScalef(0.4f, 1, 1);
+        gl.glRotatef(90, 0, 0, 1);
         letra.dibujarCubo();
         gl.glPopMatrix();
-        
+
         gl.glPushMatrix();
-        gl.glTranslatef(21.6f*letra.w,-letra.h/2.6f,0);
-        gl.glScalef(0.5f,1,1);
-        gl.glRotatef(90,0,0,1);
+        gl.glTranslatef(21.6f * letra.w, -letra.h / 2.6f, 0);
+        gl.glScalef(0.5f, 1, 1);
+        gl.glRotatef(90, 0, 0, 1);
         letra.dibujarCubo();
         gl.glPopMatrix();
-        
+
         gl.glPushMatrix();
-        gl.glTranslatef(21.6f*letra.w,letra.h/2.6f,0);
-        gl.glScalef(0.5f,1,1);
-        gl.glRotatef(90,0,0,1);
+        gl.glTranslatef(21.6f * letra.w, letra.h / 2.6f, 0);
+        gl.glScalef(0.5f, 1, 1);
+        gl.glRotatef(90, 0, 0, 1);
         letra.dibujarCubo();
         gl.glPopMatrix();
-        
+
         //FIN B
-        
         //Y
         gl.glPushMatrix();
-        gl.glTranslatef(25.3f*letra.w,letra.h/8,0);
-        gl.glScalef(0.5f,0.8f,1);
-        gl.glRotatef(-135,0,0,1);
+        gl.glTranslatef(25.3f * letra.w, letra.h / 8, 0);
+        gl.glScalef(0.5f, 0.8f, 1);
+        gl.glRotatef(-135, 0, 0, 1);
         letra.dibujarCubo();
         gl.glPopMatrix();
-        
+
         gl.glPushMatrix();
-        gl.glTranslatef(26.3f*letra.w,-letra.h/3,0);
-        gl.glScalef(1,0.5f,1);        
+        gl.glTranslatef(26.3f * letra.w, -letra.h / 3, 0);
+        gl.glScalef(1, 0.5f, 1);
         letra.dibujarCubo();
         gl.glPopMatrix();
-        
+
         gl.glPushMatrix();
-        gl.glTranslatef(27.3f*letra.w,letra.h/8,0);
-        gl.glScalef(0.5f,0.8f,1);
-        gl.glRotatef(135,0,0,1);
+        gl.glTranslatef(27.3f * letra.w, letra.h / 8, 0);
+        gl.glScalef(0.5f, 0.8f, 1);
+        gl.glRotatef(135, 0, 0, 1);
         letra.dibujarCubo();
         gl.glPopMatrix();
-        
+
         //FIN Y
-        
         //APOSTROFE
         gl.glPushMatrix();
-        gl.glTranslatef(29.5f*letra.w,letra.h/3,0);
-        gl.glScalef(1,0.3f,1);        
+        gl.glTranslatef(29.5f * letra.w, letra.h / 3, 0);
+        gl.glScalef(1, 0.3f, 1);
         letra.dibujarCubo();
         gl.glPopMatrix();
         //FIN APOSTROFE
-        
+
         //S
         gl.glPushMatrix();
-        gl.glTranslatef(31.5f*letra.w,letra.h/3.5f,0);
-        gl.glScalef(1,0.4f,1);        
+        gl.glTranslatef(31.5f * letra.w, letra.h / 3.5f, 0);
+        gl.glScalef(1, 0.4f, 1);
         letra.dibujarCubo();
         gl.glPopMatrix();
-        
+
         gl.glPushMatrix();
-        gl.glTranslatef(33.5f*letra.w,-letra.h/3.5f,0);
-        gl.glScalef(1,0.4f,1);        
+        gl.glTranslatef(33.5f * letra.w, -letra.h / 3.5f, 0);
+        gl.glScalef(1, 0.4f, 1);
         letra.dibujarCubo();
         gl.glPopMatrix();
-        
+
         gl.glPushMatrix();
-        gl.glTranslatef(32.5f*letra.w,0,0);
-        gl.glScalef(0.6f,1,1);
-        gl.glRotatef(90,0,0,1);
+        gl.glTranslatef(32.5f * letra.w, 0, 0);
+        gl.glScalef(0.6f, 1, 1);
+        gl.glRotatef(90, 0, 0, 1);
         letra.dibujarCubo();
         gl.glPopMatrix();
-        
+
         gl.glPushMatrix();
-        gl.glTranslatef(32.5f*letra.w,-letra.h/2.6f,0);
-        gl.glScalef(0.6f,1,1);
-        gl.glRotatef(90,0,0,1);
+        gl.glTranslatef(32.5f * letra.w, -letra.h / 2.6f, 0);
+        gl.glScalef(0.6f, 1, 1);
+        gl.glRotatef(90, 0, 0, 1);
         letra.dibujarCubo();
         gl.glPopMatrix();
-        
+
         gl.glPushMatrix();
-        gl.glTranslatef(32.5f*letra.w,letra.h/2.6f,0);
-        gl.glScalef(0.6f,1,1);
-        gl.glRotatef(90,0,0,1);
+        gl.glTranslatef(32.5f * letra.w, letra.h / 2.6f, 0);
+        gl.glScalef(0.6f, 1, 1);
+        gl.glRotatef(90, 0, 0, 1);
         letra.dibujarCubo();
         gl.glPopMatrix();
         //FIN S
-        
+
         gl.glPopMatrix();
-        
+
         gl.glPopMatrix();
         gl.glPopMatrix();
-        
-        //FIN LETRAS
-        
+
+        //FIN LETRERO
         gl.glPushMatrix();
-        gl.glTranslatef(7f*w/35,-h/4,0);
+        gl.glTranslatef(7f * w / 35, -h / 4, 0);
         puerta.dibujarCubo();
-        
+
         gl.glPushMatrix();
-        gl.glTranslatef(-puerta.w/2,0,puerta.d/2);
+        gl.glTranslatef(-puerta.w / 2, 0, puerta.d / 2);
         pBorde.dibujarCubo();
         gl.glPopMatrix();
-        
+
         gl.glPushMatrix();
-        gl.glTranslatef(puerta.w/2,0,puerta.d/2);
+        gl.glTranslatef(puerta.w / 2, 0, puerta.d / 2);
         pBorde.dibujarCubo();
         gl.glPopMatrix();
-        
-         gl.glPushMatrix();
-        gl.glTranslatef(0,puerta.h/2,puerta.d/2);
-        gl.glScalef(6,0.13f,1);
-        pBorde.dibujarCubo();
-        gl.glPopMatrix();
-        
+
         gl.glPushMatrix();
-        gl.glTranslatef(0,-puerta.h/2,puerta.d/2);
-        gl.glScalef(6f,0.3f,0.6f);
-        gl.glRotatef(90,1,0,0);        
+        gl.glTranslatef(0, puerta.h / 2, puerta.d / 2);
+        gl.glScalef(6, 0.13f, 1);
         pBorde.dibujarCubo();
         gl.glPopMatrix();
-        
+
         gl.glPushMatrix();
-        gl.glTranslatef(0,0,puerta.d/2);
-        gl.glScalef(6f,0.3f,0.1f);
-        gl.glRotatef(90,1,0,0);        
+        gl.glTranslatef(0, -puerta.h / 2, puerta.d / 2);
+        gl.glScalef(6f, 0.3f, 0.6f);
+        gl.glRotatef(90, 1, 0, 0);
         pBorde.dibujarCubo();
         gl.glPopMatrix();
-        
+
+        gl.glPushMatrix();
+        gl.glTranslatef(0, 0, puerta.d / 2);
+        gl.glScalef(6f, 0.3f, 0.1f);
+        gl.glRotatef(90, 1, 0, 0);
+        pBorde.dibujarCubo();
+        gl.glPopMatrix();
+
         //PUERTA S
         gl.glPushMatrix();
-        gl.glScalef(0.1f,0.1f,0.15f);
-        suelo(3,-4f*puerta.w,6f*puerta.h,puerta.d/2,puertaS1,puertaS2,20,1,0,0);
+        gl.glScalef(0.1f, 0.1f, 0.15f);
+        suelo(3, -4f * puerta.w, 6f * puerta.h, puerta.d / 2, puertaS1, puertaS2, 20, 1, 0, 0);
         gl.glPopMatrix();
         //FIN PUERTA S
-        
+
+        //VENTANA
+        gl.glPushMatrix();
+        gl.glTranslatef(-w / 2.5f, h / 10, 0);
+        ventana.dibujarCubo();
+
+        //MARCOS VENTANA
+        gl.glPushMatrix();
+        gl.glTranslatef(ventana.w / 2, 0, ventana.d / 2);
+        marco.dibujarCubo();
         gl.glPopMatrix();
-        
-        
-        
+
+        gl.glPushMatrix();
+        gl.glTranslatef(-ventana.w / 2, 0, ventana.d / 2);
+        marco.dibujarCubo();
+        gl.glPopMatrix();
+
+        gl.glPushMatrix();
+        gl.glTranslatef(0, 0, ventana.d / 2);
+        marco.dibujarCubo();
+        gl.glPopMatrix();
+
+        gl.glPushMatrix();
+        gl.glTranslatef(0, ventana.h / 2, ventana.d / 2);
+        gl.glRotatef(90, 0, 0, 1);
+        gl.glScalef(1f, 1.1f * ventana.w / ventana.h, 1f);
+        marco.dibujarCubo();
+        gl.glPopMatrix();
+
+        gl.glPushMatrix();
+        gl.glTranslatef(0, -ventana.h / 2, ventana.d / 2);
+        gl.glRotatef(90, 0, 0, 1);
+        gl.glScalef(1f, 1.1f * ventana.w / ventana.h, 1f);
+        marco.dibujarCubo();
+        gl.glPopMatrix();
+
+        //FIN MARCOS VENTANA
+        //PUERTA VENTANA
+        gl.glPushMatrix();
+        gl.glTranslatef(-ventana.w / 1.8f, 0, ventana.d / 2);
+        gl.glRotatef(40, 0, 1, 0);
+        puertav.dibujarCubo();
+        gl.glPopMatrix();
+
+        gl.glPushMatrix();
+        gl.glTranslatef(ventana.w / 1.8f, 0, ventana.d / 2);
+        gl.glRotatef(-40, 0, 1, 0);
+        puertav.dibujarCubo();
+        gl.glPopMatrix();
+        //FIN PUERTA VENTANA
+
+        gl.glPopMatrix();
+        //FIN VENTANA
+
+        gl.glPopMatrix();
+
 //        Pared posterior
-          pfp.paredes(15, pfp, pfp1,w, h, d / 28, -w / 2, -h / 2.25f, -d, 0.51f, 0.15f, 0.03f,0.25f, 0.05f, 0.02f);
+        pfp.paredes(15, pfp, pfp1, w, h, d / 28, -w / 2, -h / 2.25f, -d, 0.51f, 0.15f, 0.03f, 0.25f, 0.05f, 0.02f);
 
 //        Pared lateral izquierda
         gl.glPushMatrix();
         gl.glRotatef(90, 0, 1, 0);
-        gl.glScalef(d / w, 1, 1);        
-        pfp.paredes(15, pfp, pfp1,w, h, d / 28, d / 305, -h / 2.25f, -w / 1.85f, 0.51f, 0.15f, 0.03f,0.25f, 0.05f, 0.02f);
+        gl.glScalef(d / w, 1, 1);
+        pfp.paredes(15, pfp, pfp1, w, h, d / 28, d / 305, -h / 2.25f, -w / 1.85f, 0.51f, 0.15f, 0.03f, 0.25f, 0.05f, 0.02f);
         gl.glPopMatrix();
 
 //        Pared lateral izquierda
         gl.glPushMatrix();
         gl.glRotatef(90, 0, 1, 0);
         gl.glScalef(d / w, 1, 1);
-        pfp.paredes(15, pfp, pfp1,w, h, d / 28, d / 305, -h / 2.25f, w / 1.85f, 0.51f, 0.15f, 0.03f,0.25f, 0.05f, 0.02f);
+        pfp.paredes(15, pfp, pfp1, w, h, d / 28, d / 305, -h / 2.25f, w / 1.85f, 0.51f, 0.15f, 0.03f, 0.25f, 0.05f, 0.02f);
         gl.glPopMatrix();
 
         //TECHO
         gl.glPushMatrix();
         gl.glTranslatef(0, h / 1.6f, -d / 2);
         techo.dibujarCubo();
-        
+
         //Nieve
         gl.glPushMatrix();
-        gl.glTranslatef(0,techo.h/2,0);
+        gl.glTranslatef(0, techo.h / 2, 0);
         nieve.dibujarCubo();
         gl.glPopMatrix();
-        
+
         gl.glPopMatrix();
         //FIN TECHO
 
+        //SUELO
         gl.glPushMatrix();
-        gl.glScalef(0.95f,0.6f,0.85f);
-        suelo(5,-w/2,-h/1.2f,-1.1f*d,suelo,suelo1,0,0,0,0);
+        gl.glScalef(0.95f, 0.6f, 0.85f);
+        suelo(5, -w / 2, -h / 1.2f, -1.1f * d, suelo, suelo1, 0, 0, 0, 0);
         gl.glPopMatrix();
+        //FIN SUELO
     }
 
     public void dibujarInterior() {
+
+        //puerta interior
+        puerta();
+        //fin puerta interior
 
         ////MESAS
         //MESA CIRCULAR
@@ -576,38 +656,87 @@ public class Restaurante {
 
         //MESAS SOFA
         gl.glPushMatrix();
-        gl.glScalef(0.8f,1,0.55f);
-        monoMesa(18 * w / 35, -h / 5, -6f * d / 18);  
+        gl.glScalef(0.8f, 1, 0.55f);
+        monoMesa(18 * w / 35, -h / 5, -6f * d / 18);
         gl.glPopMatrix();
-        
-        
+
         gl.glPushMatrix();
-        gl.glScalef(0.8f,1,0.55f);
-        monoMesa(18 * w / 35, -h / 5, -16.2f * d / 18);        
+        gl.glScalef(0.8f, 1, 0.55f);
+        monoMesa(18 * w / 35, -h / 5, -16.2f * d / 18);
         gl.glPopMatrix();
-        
-       
+
         //FIN MESAS SOFA
-        
         //MAQUINA
         maquina(13.5f * w / 35, -h / 3.2f, -17 * d / 18);
         //FIN MAQUINA
 
     }
 
-    public void suelo(int n, float x, float y, float z,Cubo c1, Cubo c2,float ang, float x1,float y1,float z1){
+    public void puerta() {
+        gl.glPushMatrix();
+        gl.glTranslatef(-w / 2.6f, -h/8, -d/1.05f );
+        puertai.dibujarCubo();
+        
+        //MANIJA
+        gl.glPushMatrix();
+        gl.glTranslatef(puertai.w/2.8f,0,puertai.d/1.9f);
+        manija.dibujarCubo();
+        gl.glPopMatrix();
+        //FIN MANIJA
+        
+        //MARCOS
+        gl.glPushMatrix();
+        gl.glTranslatef(-puertai.w/2,0,puertai.d/2);
+        marcopi.dibujarCubo();
+        gl.glPopMatrix();
+        
+        gl.glPushMatrix();
+        gl.glTranslatef(puertai.w/2,0,puertai.d/2);
+        marcopi.dibujarCubo();
+        gl.glPopMatrix();
+        
+        gl.glPushMatrix();
+        gl.glTranslatef(0,puertai.h/2,puertai.d/2);
+        gl.glRotatef(90,0,0,1);
+        gl.glScalef(1,1.45f*puertai.w,1);
+        marcopi.dibujarCubo();
+        gl.glPopMatrix();
+        //FIN MARCOS
+        
+        // VENTANA
+        gl.glPushMatrix();
+        gl.glTranslatef(0,puertai.h/4.4f,puertai.d/2);
+        ventanapi.dibujarCubo();
+        
+        gl.glPushMatrix();
+        gl.glTranslatef(0,ventanapi.h/2,ventanapi.d/6.5f);
+        eventanapi.dibujarEsfera();
+        gl.glPopMatrix();              
+        
+        gl.glPushMatrix();
+        gl.glTranslatef(0,ventanapi.h/3.8f,ventanapi.d/1.5f);
+        mventanapi.dibujarCubo();
+        gl.glPopMatrix();
+        
+        gl.glPopMatrix();
+        //FIN VENTANA
+        
+        gl.glPopMatrix();
+    }
+
+    public void suelo(int n, float x, float y, float z, Cubo c1, Cubo c2, float ang, float x1, float y1, float z1) {
         c1.w = w / n;
         c1.d = d / n;
         c2.w = w / n;
         c2.d = d / n;
-        
+
         gl.glPushMatrix();
-        gl.glRotatef(ang,x1,y1,z1);
+        gl.glRotatef(ang, x1, y1, z1);
         //PARED FRONTAL 1
         //FILA
         //COLOR1
         gl.glPushMatrix();
-        gl.glTranslatef(x, y, z);        
+        gl.glTranslatef(x, y, z);
         c1.dibujarCubo();
 
         for (int i = 0; i < n / 2; i++) {
@@ -661,7 +790,7 @@ public class Restaurante {
         //FILA
         //COLOR1
         gl.glPushMatrix();
-        gl.glTranslatef(x, y , z+ c2.d);
+        gl.glTranslatef(x, y, z + c2.d);
         c2.dibujarCubo();
 
         for (int i = 0; i < n / 2; i++) {
@@ -672,7 +801,7 @@ public class Restaurante {
         //FIN COLOR1
         //COLOR2
         gl.glPushMatrix();
-        gl.glTranslatef(x + c2.w, y , z+ c2.d);
+        gl.glTranslatef(x + c2.w, y, z + c2.d);
         c1.dibujarCubo();
         for (int i = 0; i < n / 2; i++) {
             gl.glTranslatef(2 * c2.w, 0, 0);
@@ -688,7 +817,7 @@ public class Restaurante {
             gl.glTranslatef(0, 0, 2 * c2.d);
             //COLOR1
             gl.glPushMatrix();
-            gl.glTranslatef(x, y , z+ c1.d);
+            gl.glTranslatef(x, y, z + c1.d);
             c2.dibujarCubo();
             for (int i = 0; i < n / 2; i++) {
                 gl.glTranslatef(2 * c2.w, 0, 0);
@@ -698,7 +827,7 @@ public class Restaurante {
             //FIN COLOR1
             //COLOR2
             gl.glPushMatrix();
-            gl.glTranslatef(x + c2.w, y , z+ c1.d);
+            gl.glTranslatef(x + c2.w, y, z + c1.d);
             c1.dibujarCubo();
             for (int i = 0; i < n / 2; i++) {
                 gl.glTranslatef(2 * c2.w, 0, 0);
@@ -841,9 +970,17 @@ public class Restaurante {
         gl.glTranslatef(barra.w / 2f, 0, 0);
         ebredonda.dibujarEsfera();
         gl.glPopMatrix();
+        
+        //VASOS
+        vaso(0, 1.5f*barra.h, 0, 1, 1, 1);
+         vaso(-barra.w/8, 1.7f*barra.h, 0, 1, 1, 1.2f);
+        //FIN VASOS        
+        
         gl.glPopMatrix();
         //FIN BARRA PRINCIPAL
-
+        
+        
+        
         //Barra2
         gl.glPushMatrix();
         gl.glTranslatef(barra.w / 2.05f, y, z - 1.4f * this.d / 18);//*_
@@ -875,20 +1012,40 @@ public class Restaurante {
         gl.glPushMatrix();
         gl.glTranslatef(x, y, z);//**
         tablero.dibujarEsfera();
+
+        gl.glPushMatrix();
+        gl.glTranslatef(0, tablero.h, 0);
+        carta.dibujarCubo();
+        gl.glPopMatrix();
+
+        gl.glPushMatrix();
+        gl.glTranslatef(tablero.w / 2.5f, tablero.h, 0);
+        carta.dibujarCubo();
+        gl.glPopMatrix();
+
+        gl.glPushMatrix();
+        gl.glTranslatef(tablero.w / 2.5f, tablero.h, tablero.d / 3);
+        gl.glScalef(1.2f, 1, 1);
+        carta.dibujarCubo();
+        gl.glPopMatrix();
+
         gl.glPushMatrix();
         gl.glRotatef(90, 1, 0, 0);
         borde.dibujarCilindro();
         gl.glPopMatrix();
+
         gl.glPushMatrix();
         gl.glTranslatef(0, -2 * patas.h, 0);//*
         gl.glScalef(0.7f, 1, 0.7f);
         tablerop.dibujarEsfera();
         gl.glPopMatrix();
+
         //pata
         gl.glPushMatrix();
         gl.glRotatef(91, 1, 0, 0);
         patas.dibujarCilindro();
         gl.glPopMatrix();
+
         gl.glPopMatrix();
         //FIN TABLERO CIRCULAR 
     }
@@ -899,6 +1056,33 @@ public class Restaurante {
         gl.glTranslatef(x, y, z);//**
         //Teclado.rotarY(gl);
         mesa.dibujarCubo();
+
+        //CARTAS
+        //1
+        carta(0, mesa.h/3, 0, 1, 1, 1, 0, 0, 0);
+        //2
+        carta(mesa.w / 2.5f, mesa.h/1.8f, 0, 1, 1, 1, 0, 0, 0);
+        //3
+        carta(mesa.w / 2.95f, mesa.h/1.8f, 0, 1, 1, 1, 0, -35, 5);
+        //4
+        carta(mesa.w / 2.5f, mesa.h/1.8f, mesa.d / 3, 1.2f, 1, 1, 0, 0, 0);
+        //5
+        carta(mesa.w / 6.5f, mesa.h/1.8f, mesa.d / 4.5f, 1, 1, 1, 0, 15, 0);
+        //6
+        carta(-mesa.w / 10.5f, mesa.h/1.8f, mesa.d / 6f, 1.1f, 1, 1, 0, -25, 0);
+
+        //FIN CARTAS
+        //VASOS
+        //1
+        vaso(0, 1.6f * mesa.h, mesa.d / 2.35f, 1, 1, 1);
+        //2
+        vaso(-mesa.w / 2.8f, 1.6f * mesa.h, mesa.d / 2.9f, 1, 1, 0.8f);
+        //3
+        vaso(mesa.w / 4f, 1.4f * mesa.h, mesa.d / 2.9f, 0.9f, 1, 0.8f);
+        //4 
+        vaso(-mesa.w / 4f, 1.35f * mesa.h, -mesa.d / 3.7f, 0.9f, 1, 0.8f);
+        //FIN VASOS
+
         //Esquina izq
         gl.glPushMatrix();
         gl.glTranslatef(-mesa.w / 2f, 0, 0);
@@ -941,8 +1125,63 @@ public class Restaurante {
         gl.glPopMatrix();
         //FIN TABLERO CUADRADO   
     }
-    
-    public void monoMesa(float x, float y, float z){
+
+    public void vaso(float x, float y, float z, float sw, float sh, float sd) {
+        gl.glPushMatrix();
+        gl.glTranslatef(x, y, z);
+        gl.glRotatef(90, 1, 0, 0);
+        gl.glScalef(sw, sh, sd);
+        vaso.dibujarCilindro();
+        gl.glPopMatrix();
+
+    }
+
+    public void carta(float x, float y, float z, float sw, float sh, float sd, float angx, float angy, float angz) {
+        gl.glPushMatrix();
+        gl.glTranslatef(x, y, z);
+        gl.glRotatef(angx, 1, 0, 0);
+        gl.glRotatef(angy, 0, 1, 0);
+        gl.glRotatef(angz, 0, 0, 1);
+        gl.glScalef(sw, sh, sd);
+        carta.dibujarCubo();
+
+        gl.glPushMatrix();
+        gl.glRotatef(45, 0, 1, 0);
+        figura.dibujarCubo();
+        gl.glPopMatrix();
+
+        gl.glPushMatrix();
+        gl.glTranslatef(carta.w / 2.55f, 0, carta.d / 2.55f);
+        gl.glRotatef(45, 0, 1, 0);
+        gl.glScalef(0.55f, 1.0f, 0.55f);
+        figura.dibujarCubo();
+        gl.glPopMatrix();
+
+        gl.glPushMatrix();
+        gl.glTranslatef(-carta.w / 2.55f, 0, carta.d / 2.55f);
+        gl.glRotatef(45, 0, 1, 0);
+        gl.glScalef(0.55f, 1.0f, 0.55f);
+        figura.dibujarCubo();
+        gl.glPopMatrix();
+
+        gl.glPushMatrix();
+        gl.glTranslatef(-carta.w / 2.55f, 0, -carta.d / 2.55f);
+        gl.glRotatef(45, 0, 1, 0);
+        gl.glScalef(0.55f, 1.0f, 0.55f);
+        figura.dibujarCubo();
+        gl.glPopMatrix();
+
+        gl.glPushMatrix();
+        gl.glTranslatef(carta.w / 2.55f, 0, -carta.d / 2.55f);
+        gl.glRotatef(45, 0, 1, 0);
+        gl.glScalef(0.55f, 1.0f, 0.55f);
+        figura.dibujarCubo();
+        gl.glPopMatrix();
+
+        gl.glPopMatrix();
+    }
+
+    public void monoMesa(float x, float y, float z) {
         //Tablero cuadrado
         gl.glPushMatrix();
         gl.glTranslatef(x, y, z);//**
@@ -958,24 +1197,24 @@ public class Restaurante {
         gl.glTranslatef(mesa.w / 2f, 0, 0);
         eredonda.dibujarEsfera();
         gl.glPopMatrix();
-        
+
         //botellas
-        gl.glPushMatrix();       
+        gl.glPushMatrix();
         gl.glScalef(0.6f, 0.75f, 0.65f);
-        botella(0, 2.3f*mesa.h, -mesa.d/3, botella2, botellacn2, botellac2, botellat2, botellacb2);
+        botella(0, 2.3f * mesa.h, -mesa.d / 3, botella2, botellacn2, botellac2, botellat2, botellacb2);
         gl.glPopMatrix();
-        
+
         gl.glPushMatrix();
         gl.glScalef(0.7f, 0.65f, 0.65f);
-        botella(mesa.w/3, 2.3f*mesa.h, -mesa.d/5, botella1, botellacn1, botellac1, botellat1, botellacb1);
+        botella(mesa.w / 3, 2.3f * mesa.h, -mesa.d / 5, botella1, botellacn1, botellac1, botellat1, botellacb1);
         gl.glPopMatrix();
         //fin botellas
-        
+
         gl.glPushMatrix();
-        gl.glTranslatef(0,-3f*mesa.h,0);
+        gl.glTranslatef(0, -3f * mesa.h, 0);
         pata.dibujarCubo();
         gl.glPopMatrix();
-        
+
         gl.glPopMatrix();
     }
 
