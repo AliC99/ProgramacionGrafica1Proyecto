@@ -26,7 +26,8 @@ public class Restaurante {
             puerta, pBorde, letrero, letra, puertaS1, puertaS2,
             ventana, marco, puertav,
             carta, figura,
-            puertai, marcopi, ventanapi,manija,mventanapi;
+            puertai, marcopi, ventanapi,manija,mventanapi,
+            cluz;
     Esfera tablero, tablerop,
             eredonda,
             ebredonda,
@@ -38,13 +39,15 @@ public class Restaurante {
             botella1,
             botella2,
             emqredonda, emqredonda1, cuerpomq, espredonda, emlidredonda,
-            eventanapi;
+            eventanapi,
+            eluz;
     Cilindro patas, borde,
             botellac, botellat, botellacn,
             botellac1, botellat1, botellacn1,
             botellac2, botellat2, botellacn2,
             maqlid,
-            vaso;
+            vaso,
+            luz;
     Torus maqc;
     GL gl;
 
@@ -113,7 +116,7 @@ public class Restaurante {
         //FIN CARTAS
 
         //MESA CUADRADA
-        mesa = new Cubo(gl, 0, 0, 0, 7 * w / 35, h / 20, 3.5f * d / 18, 1.0f, 0.44f, 0.0f);
+        mesa = new Cubo(gl, 0, 0, 0, 7 * w/ 35, h / 20, 3.5f * d / 18, 1.0f, 0.44f, 0.0f);
         eredonda = new Esfera(gl, 0, 0, 0, w / 45, h / 30, mesa.d / 1.95f, 1.0f, 0.44f, 0.0f, 10, 10);
         //FIN MESA CUADRADA 
 
@@ -121,6 +124,12 @@ public class Restaurante {
         vaso = new Cilindro(gl, 0, 0, 0, mesa.w / 19f, mesa.d / 12, mesa.h, 0.7f, 0.1f, 0.2f, 25, 25, 1f, 1f);
         //FIN VASO
 
+        //LUZ
+        luz = new Cilindro(gl, 0, 0, 0,w / 65f, d / 60, h/15, 0.98f,0.49f,0.03f, 20, 20, 1f, 1f);
+        eluz = new Esfera(gl, 0, 0, 0, luz.w, luz.d/2 , luz.h, 0.6f,0.16f,0.06f, 10, 10);
+        cluz = new Cubo(gl, 0, 0, 0, luz.w/2, luz.d/2 , luz.h/1.5f, 0.6f,0.16f,0.06f);
+        //FIN LUZ
+        
         //PATA
         pata = new Cubo(gl, 0, 0, 0, mesa.w, mesa.h * 5.5f, mesa.d / 5, 0.29f, 0.07f, 0.06f);
         //FIN PATA 
@@ -575,6 +584,20 @@ public class Restaurante {
 
     public void dibujarInterior() {
 
+        //LUZ
+        luz(-w/4.2f,0,-d/1.25f,0);
+        luz(-w/2.05f,0,-d/1.25f,90);
+        luz(-w/2.05f,0,-d/1.70f,90);
+        luz(-w/2.05f,0,-d/2.60f,90);
+        luz(-w/2.05f,0,-d/5.55f,90);
+        
+         luz(w/2.05f,0,-d/1.25f,-90);
+        luz(w/2.05f,0,-d/1.70f,-90);
+        luz(w/2.05f,0,-d/2.60f,-90);
+        luz(w/2.05f,0,-d/5.55f,-90);
+        
+        //FIN LUZ
+        
         //puerta interior
         puerta();
         //fin puerta interior
@@ -670,6 +693,30 @@ public class Restaurante {
         maquina(13.5f * w / 35, -h / 3.2f, -17 * d / 18);
         //FIN MAQUINA
 
+    }
+    
+    
+    public void luz(float x, float y, float z,float ang){
+        gl.glPushMatrix();
+        gl.glTranslatef(x,y,z);
+        gl.glRotatef(ang,0,1,0);
+        
+        gl.glPushMatrix();
+        gl.glTranslatef(0,-1.2f*luz.d,-2f*luz.h);        
+        eluz.dibujarEsfera();
+        gl.glPopMatrix();
+        
+        gl.glPushMatrix();
+        gl.glTranslatef(0,-luz.d,-luz.h);    
+        gl.glRotatef(40,1,0,0);
+        cluz.dibujarCubo();
+        gl.glPopMatrix();
+        
+        gl.glRotatef(90,1,0,0);
+        luz.dibujarCilindro();
+       
+        
+        gl.glPopMatrix();
     }
 
     public void puerta() {

@@ -37,7 +37,7 @@ public class Cono {
     public void cono(){
         GLUT glut=new GLUT();
         gl.glPushMatrix();
-        gl.glColor3f(r, g, g);        
+        gl.glColor3f(r, g, b);        
         gl.glScalef(w,h,d);   
         glut.glutSolidCone(1, 1, slices, stacks);
         gl.glPopMatrix();

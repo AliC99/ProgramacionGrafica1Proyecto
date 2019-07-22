@@ -36,13 +36,13 @@ public class Persona {
         this.ang = ang;
 
         cabeza = new Esfera(gl, 0, 0, 0, w / 4, 3 * h / 13, d / 4, 1.0f, 0.79f, 0.05f, 15, 15);
-        cuello = new Cilindro(gl, 0, 0, 0, w / 3, cabeza.h / 1.5f, d / 3, 1.0f, 0.79f, 0.05f, 20, 20, 0.25f, 0.25f);
-        torso = new Cilindro(gl, 0, 0, 0, w, 3.5f * h / 13, 3f * h / 13, 0.45f, 0.65f, 0.89f, 20, 20, 0.25f, 0.25f);
+        cuello = new Cilindro(gl, 0, 0, 0, w / 3, cabeza.d, d / 4, 1.0f, 0.79f, 0.05f, 20, 20, 0.25f, 0.25f);
+        torso = new Cilindro(gl, 0, 0, 0, w,  d/1.6f , 3.5f * h / 13, 0.45f, 0.65f, 0.89f, 20, 20, 0.25f, 0.25f);
         rayas = new Cilindro(gl, 0, 0, 0, torso.w, 1.1f * torso.h, torso.d / 4, 0.72f, 0.28f, 0.76f, 20, 20, 0.25f, 0.25f);
-        etorso = new Esfera(gl, 0, 0, 0, torso.w / 4, torso.h / 4, torso.h, 0.45f, 0.65f, 0.89f, 15, 15);
-        pantalon = new Cilindro(gl, 0, 0, 0, w / 2.4f, 1.1f * torso.h, d / 3, 0.45f, 0.65f, 0.89f, 20, 20, 0.25f, 0.25f);
-        pierna = new Cilindro(gl, 0, 0, 0, w / 4, 1.1f * torso.h, d / 5, 1.0f, 0.79f, 0.05f, 20, 20, 0.25f, 0.25f);
-        pie = new Cubo(gl, 0, 0, 0, w / 7, h / 7, d / 7, 0.24f, 0.07f, 0.05f);
+        etorso = new Esfera(gl, 0, 0, 0, torso.w / 4, torso.d/1.5f, torso.h/4, 0.45f, 0.65f, 0.89f, 15, 15);
+        pantalon = new Cilindro(gl, 0, 0, 0, torso.w/2.5f, 1.8f*torso.d,torso.h/2.4f, 0.45f, 0.65f, 0.89f, 20, 20, 0.25f, 0.25f);
+        pierna = new Cilindro(gl, 0, 0, 0, torso.w/2.5f, 1.6f*torso.d, torso.h/3.2f, 1.0f, 0.79f, 0.05f, 20, 20, 0.25f, 0.25f);
+        pie = new Cubo(gl, 0, 0, 0,pierna.w/2, h / 7, pierna.w/1.2f, 0.24f, 0.07f, 0.05f);
         cabello = new Cubo(gl, 0, 0, 0, 1.9f * cabeza.w, cabeza.h, cabeza.d / 6, 0.24f, 0.07f, 0.05f);
         ecabello = new Esfera(gl, 0, 0, 0, cabeza.w, cabeza.h / 1.5f, cabeza.d / 6, 0.24f, 0.0f, 0.0f, 15, 15);
         cabello1 = new Esfera(gl, 0, 0, 0, 1.1f * cabeza.w, cabeza.h, cabeza.d, 0.24f, 0.0f, 0.0f, 15, 15);
@@ -50,7 +50,7 @@ public class Persona {
 
     public void dibujarPersona() {
         gl.glPushMatrix();
-        gl.glTranslatef(x, y, z);
+        gl.glTranslatef(x, y, z);       
         gl.glRotatef(ang, 0, 1, 0);
         //Teclado.rotarY(gl);
         torso();
@@ -63,15 +63,20 @@ public class Persona {
 
     public void torso() {
         gl.glPushMatrix();
-
-        gl.glRotatef(90, 1, 0, 0);
-        torso.dibujarCilindro();
-        etorso.dibujarEsfera();
+        
         gl.glPushMatrix();
-        gl.glTranslatef(0, 0, torso.d);
+        gl.glTranslatef(0, 0, 0);
         etorso.dibujarEsfera();
         gl.glPopMatrix();
-
+        
+        gl.glPushMatrix();
+        gl.glTranslatef(0, -torso.d, 0);
+        etorso.dibujarEsfera();
+        gl.glPopMatrix();
+        
+        gl.glRotatef(90, 1, 0, 0);
+        torso.dibujarCilindro();
+    
         rayas.dibujarCilindro();
 
         gl.glPushMatrix();
@@ -84,7 +89,7 @@ public class Persona {
 
     public void cabeza() {
         gl.glPushMatrix();
-        gl.glTranslatef(0, h / 2, 0);
+        gl.glTranslatef(0, h / 2.2f, 0);
         //CABEZA
         cabeza.dibujarEsfera();
 
@@ -131,6 +136,7 @@ public class Persona {
 
         //CUELLO
         gl.glPushMatrix();
+        gl.glTranslatef(0,-cabeza.h/2,0);
         gl.glRotatef(90, 1, 0, 0);
         cuello.dibujarCilindro();
         gl.glPopMatrix();
@@ -155,21 +161,27 @@ public class Persona {
 
         //IZQUIERDA
         gl.glPushMatrix();
-        gl.glTranslatef(-torso.w / 6.7f, -torso.d, 0);
+        gl.glTranslatef(-torso.w / 6.7f, -torso.d, 0);                
+        
+        //PANTALON
+        gl.glPushMatrix();
         gl.glRotatef(90, 1, 0, 0);
         pantalon.dibujarCilindro();
-
+        gl.glPopMatrix();
+        //FIN PANTALON
+        
         //PIERNA
         gl.glPushMatrix();
-        gl.glTranslatef(0, 0, pantalon.d);
-        pierna.dibujarCilindro();
-
+        gl.glTranslatef(0, -pantalon.d, 0);        
         //ZAPATO
         gl.glPushMatrix();
-        gl.glTranslatef(0, 0, pierna.h);
+        gl.glTranslatef(0, -1.4f*pierna.d, pierna.h/10);
         pie.dibujarCubo();
         gl.glPopMatrix();
         //FIN ZAPATO
+        
+        gl.glRotatef(90, 1, 0, 0);
+        pierna.dibujarCilindro();        
 
         gl.glPopMatrix();
         //FIN PIERNA
@@ -179,60 +191,72 @@ public class Persona {
 
         //DERECHA
         gl.glPushMatrix();
-        gl.glTranslatef(torso.w / 6.7f, -torso.d, 0);
+        gl.glTranslatef(torso.w / 6.7f, -torso.d, 0);                
+        
+        //PANTALON
+        gl.glPushMatrix();
         gl.glRotatef(90, 1, 0, 0);
         pantalon.dibujarCilindro();
+        gl.glPopMatrix();
+        //FIN PANTALON
+        
         //PIERNA
         gl.glPushMatrix();
-        gl.glTranslatef(0, 0, pantalon.d);
-        pierna.dibujarCilindro();
-
+        gl.glTranslatef(0, -pantalon.d, 0);        
         //ZAPATO
         gl.glPushMatrix();
-        gl.glTranslatef(0, 0, pierna.h);
+        gl.glTranslatef(0, -1.4f*pierna.d, pierna.h/10);
         pie.dibujarCubo();
         gl.glPopMatrix();
         //FIN ZAPATO
+        
+        gl.glRotatef(90, 1, 0, 0);
+        pierna.dibujarCilindro();        
+
         gl.glPopMatrix();
         //FIN PIERNA
+
         gl.glPopMatrix();
         //FIN DERECHA
     }
 
     public void brazo() {
         gl.glPushMatrix();
-        gl.glTranslatef(-torso.w / 4.5f, -torso.h / 5f, 0);
+        gl.glTranslatef(-torso.w / 4.5f, 0, 0);
+        
+        //MANOS
+        gl.glPushMatrix();
+        gl.glTranslatef(-torso.w / 12, -torso.d , 0);
+        gl.glScalef(0.4f, 0.4f, 0.4f);
+        cabeza.dibujarEsfera();
+        gl.glPopMatrix();
+        //FIN MANOS
+        
         gl.glRotatef(90, 1, 0, 0);
         gl.glRotatef(-17, 0, 1, 0);
         gl.glScalef(0.5f, 0.6f, 1);
         torso.dibujarCilindro();
         etorso.dibujarEsfera();
+        
+        gl.glPopMatrix();
 
+        gl.glPushMatrix();
+        gl.glTranslatef(torso.w / 4.5f, 0, 0);
+        
         //MANOS
         gl.glPushMatrix();
-        gl.glTranslatef(-torso.w / 12, torso.d / 2, torso.h);
-        gl.glScalef(0.6f, 0.3f, 0.3f);
+        gl.glTranslatef(torso.w / 12, -torso.d , 0);
+        gl.glScalef(0.4f, 0.4f, 0.4f);
         cabeza.dibujarEsfera();
         gl.glPopMatrix();
-
         //FIN MANOS
-        gl.glPopMatrix();
-
-        gl.glPushMatrix();
-        gl.glTranslatef(torso.w / 4.5f, -torso.h / 5f, 0);
+        
         gl.glRotatef(90, 1, 0, 0);
         gl.glRotatef(17, 0, 1, 0);
         gl.glScalef(0.5f, 0.6f, 1);
         torso.dibujarCilindro();
         etorso.dibujarEsfera();
-
-        //MANOS
-        gl.glPushMatrix();
-        gl.glTranslatef(torso.w / 12, torso.d / 2, torso.h);
-        gl.glScalef(0.6f, 0.3f, 0.3f);
-        cabeza.dibujarEsfera();
-        gl.glPopMatrix();
-        //FIN MANOS
+        
         gl.glPopMatrix();
     }
 

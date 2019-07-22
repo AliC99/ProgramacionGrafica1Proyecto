@@ -313,6 +313,57 @@ public class Cubo {
     }
     //FIN CUBO CON PATRÓN
     
+        
+        
+        //CUBO PATRÓN 2
+        public void cuboP(int n, Cubo c1,Cubo c2, float w,float h, float d){
+            
+            //COLOR1
+           c1.dibujarCubo();
+           
+           //LADO DERECHO
+           gl.glPushMatrix();
+            for (int i = 0; i < n/3; i++) {
+                gl.glTranslatef(2*c1.w,0,0);
+                c1.dibujarCubo();
+            }
+           gl.glPopMatrix();
+           //FIN LADO DERECHO
+           
+            //LADO IZQUIERDO
+           gl.glPushMatrix();
+            for (int i = 0; i < n/3; i++) {
+                gl.glTranslatef(-2*c1.w,0,0);
+                c1.dibujarCubo();
+            }
+           gl.glPopMatrix();
+           //FIN LADO IZQUIERDO
+           //FIN COLOR1
+           
+           //COLOR2       
+           
+           //LADO DERECHO
+           gl.glPushMatrix();
+            for (int i = 0; i < n/2; i++) {
+                gl.glTranslatef(c2.w,0,0);
+                c2.dibujarCubo();
+            }
+           gl.glPopMatrix();
+           //FIN LADO DERECHO
+           
+            //LADO IZQUIERDO
+           gl.glPushMatrix();
+            for (int i = 0; i < n/2; i++) {
+                gl.glTranslatef(-c2.w,0,0);
+                c2.dibujarCubo();
+            }
+           gl.glPopMatrix();
+           //FIN LADO IZQUIERDO
+           //FIN COLOR2
+           
+           
+        }
+        //FIN CUBO PATRÓN
     
     
 }

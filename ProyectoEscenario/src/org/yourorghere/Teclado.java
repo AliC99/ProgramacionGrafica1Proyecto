@@ -25,16 +25,16 @@ public class Teclado implements KeyListener {
     public static boolean validarGiro=false;
     public static boolean validarGiroid=true;
 
-     static float trasladaX = 0;
-     static float trasladaY = 8*Proyecto.alto;
-//     static float trasladaZ =-Proyecto.largo/2.2f;
-     static float trasladaZ =1.5f;
+     static float trasladaX = -Proyecto.ancho/2.5f;
+     static float trasladaY = -Proyecto.alto;
+     static float trasladaZ =Proyecto.largo/2f;
+//     static float trasladaZ =1.5f;
 
     private static float escalaX = 1;
     private static float escalaY = 1;
 
     private static float rotarX = 0;
-    private static float rotarY = 0;
+     static float rotarY = 0;
     private static float rotarZ = 0;
 
     private static float trasladar=0;
@@ -75,6 +75,14 @@ public class Teclado implements KeyListener {
         gl.glTranslatef(0,0,trasladar);       
     }
     
+    
+    static float trasY=0;
+     public static void trasladarY(GL gl){
+        trasY-=0.1f;
+        gl.glTranslatef(0,trasY,0); 
+         System.out.println(trasY);
+    }
+    
     public static void rotarY(GL gl) {
         rotarY += 5.0f;
         gl.glRotatef(rotarY, 0, 1, 0);
@@ -83,9 +91,12 @@ public class Teclado implements KeyListener {
      public static void rotarY(GL gl,float ang) {
         rotarY += ang;
         gl.glRotatef(rotarY, 0, 1, 0);
+         //System.out.println("d "+rotarY);
     }
      
-     public static float nieve=30*Proyecto.alto;
+     
+     
+  
      
      public static float trasX=0;
      

@@ -13,7 +13,7 @@ import javax.media.opengl.GL;
  */
 public class Piso {
 
-    Cubo plano1, plano2, plano4;
+    Cubo plano1, plano2, plano4, plano;
     Cubo tierra1, tierra2, tierra4;
     GL gl;
 
@@ -29,6 +29,8 @@ public class Piso {
         this.h = h;
         this.d = d;
 
+        plano = new Cubo(gl, 0, 0, 0, 2*w , h/2,  d , 0.32f,0.37f,0.16f);
+        
         plano1 = new Cubo(gl, 0, 0, 0, 3 * w / 16, h, 11.5f * d / 25, 0.9f, 0.9f, 1.0f);
         tierra1 = new Cubo(gl, 0, 0, 0, plano1.w / 3, 1.1f * plano1.h, 9.5f*plano1.d/11.5f, 0.43f, 0.25f, 0.19f);
         
@@ -36,12 +38,13 @@ public class Piso {
         tierra2 = new Cubo(gl, 0, 0, 0, plano2.w , 1.1f * plano2.h, plano2.d/3, 0.43f, 0.25f, 0.19f);
         
         plano4 = new Cubo(gl, 0, 0, 0,  w , h, 5 * d / 16, 0.9f, 0.9f, 1.0f);
-        tierra4 = new Cubo(gl, 0, 0, 0, plano4.w/2 , 1.1f * plano4.h, plano4.d/3, 0.43f, 0.25f, 0.19f);
+        tierra4 = new Cubo(gl, 0, 0, 0, plano4.w/2.5f , 1.1f * plano4.h, plano4.d/4, 0.43f, 0.25f, 0.19f);
     }
 
     public void dibujarPiso() {
         gl.glPushMatrix();
         gl.glTranslatef(x, y, z);
+        plano.dibujarCubo();
         
         //1
         gl.glPushMatrix();
@@ -93,6 +96,26 @@ public class Piso {
         gl.glPushMatrix();
         gl.glTranslatef(0,0,-d/2.8f);
         plano4.dibujarCubo();
+        
+        gl.glPushMatrix();
+        gl.glTranslatef(plano4.w/4.22f,0,0);
+        tierra4.dibujarCubo();
+        gl.glPopMatrix();
+        
+        gl.glPushMatrix();
+        gl.glTranslatef(plano4.w/2.465f,0,plano4.d/2);
+        gl.glScalef(1,1,0.5f);
+        gl.glRotatef(90,0,1,0);
+        tierra4.dibujarCubo();
+        gl.glPopMatrix();
+        
+        gl.glPushMatrix();
+        gl.glTranslatef(plano4.w/35,0,-plano4.d/5.4f);
+        gl.glScalef(0.6f,1,0.38f);
+        gl.glRotatef(90,0,1,0);
+        tierra4.dibujarCubo();
+        gl.glPopMatrix();
+        
         gl.glPopMatrix();
         //FIN 4
         

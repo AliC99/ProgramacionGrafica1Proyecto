@@ -255,6 +255,95 @@ public class Casa {
         gl.glPopMatrix();
     }
 
+        public void dibujarCasaV() {
+
+        gl.glPushMatrix();
+          
+        //BASE
+        gl.glTranslatef(x,y,z);
+        gl.glRotatef(ang,0,1,0);
+//        Teclado.rotarY(gl);
+        base1.dibujarCubo();       
+        base2.dibujarCubo();
+        base3.dibujarCubo();
+        base4.dibujarCubo();
+        base5.dibujarCubo();
+        base6.dibujarTrapecio(w/6);
+        base7.dibujarTrapecio(w/6);
+        base8.dibujarTrapecio(w/6);
+        
+        //Techos
+        //Derecha
+        gl.glPushMatrix();
+        gl.glRotatef(45,0,0,1);
+        techo1.dibujarCubo();        
+        gl.glPopMatrix();
+        
+        gl.glPushMatrix();
+        gl.glRotatef(48,0,0,1);
+        techo2.dibujarCubo();        
+        gl.glPopMatrix();
+        
+        gl.glPushMatrix();
+        gl.glRotatef(50,0,0,1);
+        techo3.dibujarCubo();        
+        gl.glPopMatrix();
+        
+        gl.glPushMatrix();
+        gl.glRotatef(52,0,0,1);
+        techo4.dibujarCubo();        
+        gl.glPopMatrix();
+        
+        gl.glPushMatrix();
+        gl.glRotatef(54,0,0,1);
+        techo5.dibujarCubo();        
+        gl.glPopMatrix();
+        //Izquierda
+        gl.glPushMatrix();
+        gl.glRotatef(-45,0,0,1);
+        techo6.dibujarCubo();        
+        gl.glPopMatrix();
+        
+        gl.glPushMatrix();
+        gl.glRotatef(-48,0,0,1);
+        techo7.dibujarCubo();        
+        gl.glPopMatrix();
+        
+        gl.glPushMatrix();
+        gl.glRotatef(-50,0,0,1);
+        techo8.dibujarCubo();        
+        gl.glPopMatrix();
+        
+        gl.glPushMatrix();
+        gl.glRotatef(-52,0,0,1);
+        techo9.dibujarCubo();        
+        gl.glPopMatrix();
+        
+        gl.glPushMatrix();
+        gl.glRotatef(-54,0,0,1);
+        techo10.dibujarCubo();        
+        gl.glPopMatrix();
+        
+        //Nieve
+        gl.glPushMatrix();
+        gl.glRotatef(48,0,0,1);
+        nieved.dibujarCubo();
+        gl.glPopMatrix();
+        
+        gl.glPushMatrix();
+        gl.glRotatef(-48,0,0,1);
+        nievei.dibujarCubo();
+        gl.glPopMatrix();                
+        
+        gl.glPopMatrix();
+        }
+    
+        public void puerta(float x,float y,float z){
+        gl.glPushMatrix();
+        gl.glTranslatef(x,y,z);
+        puerta.dibujarCubo();
+        gl.glPopMatrix();
+        }
  
 
 }

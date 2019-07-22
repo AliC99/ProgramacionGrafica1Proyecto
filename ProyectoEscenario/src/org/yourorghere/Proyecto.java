@@ -44,6 +44,9 @@ public class Proyecto implements GLEventListener {
     Faro f1;
     Casa1 c1;
     Letrero l1;
+    Casa2 c2;
+    Casa3 c3;
+    
     ArrayList<Buzon> buzon;
     ArrayList<Casa> cabania;
     ArrayList<Arbol> arbol;
@@ -91,7 +94,8 @@ public class Proyecto implements GLEventListener {
         gl.setSwapInterval(1);
 
         // Setup the drawing area and shading mode
-        gl.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+       
+       
         gl.glShadeModel(GL.GL_SMOOTH); // try setting this to GL_FLAT and see what happens.
 
         gl.glEnable(GL.GL_DEPTH_TEST);
@@ -108,10 +112,13 @@ public class Proyecto implements GLEventListener {
         a1 = new Arbol(gl, ancho / 20, 6.2f * p1.h, largo / 7.2f, 0.93f, 2.5f, 1.0f, 20);
         r1 = new Restaurante(gl, 0, 11.775f * alto, -largo / 2f, 2.7f, 1.15f, 2.2f, 0);
         b1 = new Buzon(gl, 0, 0, 0, 0.3f, 0.7f, 0.25f, 25);
-        ci1 = new Cielo(gl, 0, 0, 0, ancho, 9.5f, 42.5f);
-        pr1 = new Persona(gl, 0, 4 * p1.h, 0, 0.2f, 0.2f, 0.2f, 180);
+        ci1 = new Cielo(gl, 0, 100*alto, -largo/1.1f, ancho, 30, 42.5f);
+        pr1 = new Persona(gl, 0, 10* p1.h, 0, 0.2f, 0.2f, 0.2f, 180);
         c1 = new Casa1(gl, ancho / 35, 1.5f * p1.h, -largo / 35, 1.7f, 0.85f, 0.85f, 0);
         l1 = new Letrero(gl, -7.3f * ancho / 16, -11 * alto, largo / 2.8f, 0.8f, 0.65f, 0.1f, 20);
+        c2 = new Casa2(gl, -ancho / 2.4f, 4.5f * p1.h, largo / 10, 0.5f, 0.8f, 0.55f, 0);
+        c3 = new Casa3(gl, -ancho/3, 4.5f * p1.h, largo / 6, 0.5f, 0.8f, 0.55f, 0);
+        
 
         //RATONES
         raton = new ArrayList<Raton>();
@@ -234,7 +241,15 @@ public class Proyecto implements GLEventListener {
 
     public void display(GLAutoDrawable drawable) {
         GL gl = drawable.getGL();
-
+        if (Teclado.rotarY>=10000) {
+            gl.glClearColor(0,ci1.cielo.c2,ci1.cielo.c3, 0.0f);
+            
+        }else{
+            gl.glClearColor(0, ci1.cielo.c2, ci1.cielo.c3, 0.0f);
+            
+        }
+         
+         
         // Clear the drawing area
         gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
         // Reset the current matrix to the "identity"
@@ -243,7 +258,7 @@ public class Proyecto implements GLEventListener {
 
         //Fondo
         if (ncam == 1) {
-            glu.gluLookAt(pr1.x, pr1.y + 2.5f * pr1.h, pr1.z + 1.3f, pr1.x, pr1.y, pr1.z, 0, 1, 0);
+            glu.gluLookAt(pr1.x, pr1.y + 2f * pr1.h, pr1.z + 1.3f, pr1.x, pr1.y, pr1.z, 0, 1, 0);
             pr1.x = Teclado.getTrasladaX();
             pr1.z = Teclado.getTrasladaZ();
 
@@ -290,7 +305,7 @@ public class Proyecto implements GLEventListener {
                 }
             }
 
-            pr1.dibujarPersona();
+            //pr1.dibujarPersona();
 
             //FIN GIROS DEL PERSONAJE
          
@@ -317,6 +332,9 @@ public class Proyecto implements GLEventListener {
 
         gl.glPushMatrix();
         gl.glTranslatef(p1.x, p1.y, p1.z);
+        
+        pr1.dibujarPersona();
+            
         for (Casa c : cabania) {
             c.dibujarCasa();
         }
@@ -336,16 +354,18 @@ public class Proyecto implements GLEventListener {
 
         a1.arbolCentral();
         p1.dibujarPiso();
-        //r1.dibujarRestaurante();
-
-        Cuadrado c = new Cuadrado(gl, 0, 0, 1.8f, 1, 1, 1, 0.3f, 0, cp);
-
-        c.dibujarCuadradoxy();
+        r1.dibujarRestaurante();
+        c2.casa2();
+        c3.casa3();
 
         //c1.casa1();
         l1.letrero();
 
-        ci1.noche();
+       
+       
+        ci1.cielo();
+        
+        
         gl.glPopMatrix();
 
         // Flush all drawing operations to the graphics card
