@@ -44,7 +44,7 @@ public class Proyecto implements GLEventListener {
     Faro f1;
     Casa1 c1;
     Letrero l1;
-    Casa2 c2;
+    Casa2 c2,c21;
     Casa3 c3;
     
     ArrayList<Buzon> buzon;
@@ -117,7 +117,8 @@ public class Proyecto implements GLEventListener {
         c1 = new Casa1(gl, ancho / 35, 1.5f * p1.h, -largo / 35, 1.7f, 0.85f, 0.85f, 0);
         l1 = new Letrero(gl, -7.3f * ancho / 16, -11 * alto, largo / 2.8f, 0.8f, 0.65f, 0.1f, 20);
         c2 = new Casa2(gl, -ancho / 2.4f, 4.5f * p1.h, largo / 10, 0.5f, 0.8f, 0.55f, 0);
-        c3 = new Casa3(gl, -ancho/3, 4.5f * p1.h, largo / 6, 0.5f, 0.8f, 0.55f, 0);
+        c21 = new Casa2(gl, ancho / 2.2f, 4.5f * p1.h, largo / 10, 0.5f, 0.8f, 0.55f, -90);
+        c3 = new Casa3(gl, ancho/30, 4.5f * p1.h, largo/65, 0.65f, 1f, 0.65f, 0);
         
 
         //RATONES
@@ -356,6 +357,7 @@ public class Proyecto implements GLEventListener {
         p1.dibujarPiso();
         r1.dibujarRestaurante();
         c2.casa2();
+        c21.casa2();
         c3.casa3();
 
         //c1.casa1();

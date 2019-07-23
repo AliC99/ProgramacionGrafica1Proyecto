@@ -50,7 +50,7 @@ public class Casa2 {
     public void casa2(){
         gl.glPushMatrix();
         gl.glTranslatef(x,y,z);
-        
+        gl.glRotatef(ang,0,1,0);
         //BASE
         gl.glPushMatrix();
         gl.glScalef(w/6,2*h/6,d);    
