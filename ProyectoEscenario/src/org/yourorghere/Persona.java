@@ -260,31 +260,7 @@ public class Persona {
         gl.glPopMatrix();
     }
 
-    public void moverW(float z) {
-        if (Teclado.trasladaZ <= z && Teclado.trasladaZ > z-3.69f && Teclado.trasladaX < 6f) {
-            Teclado.trasladaZ = z;
-        } else if (Teclado.trasladaZ < -7.23f && Teclado.trasladaZ > -7.5f && Teclado.trasladaX > 0.65f) {
-            Teclado.trasladaZ = Teclado.trasladaZ;
-        } else if (Teclado.trasladaZ < -7.23f && Teclado.trasladaZ > -7.5f && Teclado.trasladaX < 0.41f) {
-            Teclado.trasladaZ = Teclado.trasladaZ;
-        } 
-    }
-    
-    public void moverS(float z){
-         if (Teclado.trasladaZ>=z ) {
-                    Teclado.trasladaZ =z;
-                }else if (Teclado.trasladaZ>3.45f && Teclado.trasladaX>-6.11f ) {
-                    Teclado.trasladaZ=Teclado.trasladaZ;
-                }else if ( Teclado.trasladaZ<0.4f && Teclado.trasladaZ>-3 && Teclado.trasladaX<6 ) {
-                    Teclado.trasladaZ=Teclado.trasladaZ;
-                }
-    }
 
-    public void persona1() {
-        Persona p1 = new Persona(gl, x, y, z, w, h, d, ang);
-        p1.cabeza.c1 = 0.5f;
-        p1.cabeza.dibujarEsfera();
 
-    }
 
 }

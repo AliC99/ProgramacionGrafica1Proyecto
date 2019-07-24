@@ -47,7 +47,7 @@ public class Casa2 {
     }
 
     
-    public void casa2(){
+    public void casa2(float t,float g){
         gl.glPushMatrix();
         gl.glTranslatef(x,y,z);
         gl.glRotatef(ang,0,1,0);
@@ -163,6 +163,7 @@ public class Casa2 {
         //LETRERO
         gl.glPushMatrix();
         gl.glTranslatef(0,h/3,0);
+        Teclado.rotarY(gl);
         letrero.dibujarCubo();
         
         gl.glPushMatrix();
@@ -172,12 +173,12 @@ public class Casa2 {
         
         //  FLECHA
         gl.glPushMatrix();
-        gl.glTranslatef(-letrero.w/25f,0,letrero.d/2);
+        gl.glTranslatef(-letrero.w/25f,0,letrero.d/2);       
         cflecha.dibujarCubo();
         
         gl.glPushMatrix();
-        gl.glTranslatef(cflecha.w/2,0,0);
-        gl.glRotatef(-90,0,0,1);
+        gl.glTranslatef(t,0,0);
+        gl.glRotatef(g,0,0,1);
         pflecha.dibujarPiramide();
         gl.glPopMatrix();
         

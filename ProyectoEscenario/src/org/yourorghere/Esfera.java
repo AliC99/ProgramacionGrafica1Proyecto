@@ -50,7 +50,17 @@ public class Esfera {
        
     }
     
-   
+       public void dibujarEsfera(float c1, float c2, float c3){
+        GLU glu = new GLU();
+        gl.glPushMatrix();
+        gl.glColor3f(c1, c2, c3);
+        gl.glScalef(w,h,d);       
+        GLUquadric esfera = glu.gluNewQuadric();
+        glu.gluQuadricDrawStyle(esfera, GLU.GLU_FILL);
+        glu.gluSphere(esfera, 1, slices, stacks);
+        gl.glPopMatrix();
+       
+    }
     
     public void dibujarWireEsfera(){
         GLUT glut = new GLUT();

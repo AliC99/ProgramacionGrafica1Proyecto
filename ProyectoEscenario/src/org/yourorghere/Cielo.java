@@ -49,7 +49,7 @@ public class Cielo {
             for (float j = -(cielo.h ); j < 7; j++) {
                 for (float k = -(cielo.w ); k < 10; k++) {
                     try {
-                        c.add(new CoposNieve(gl, 1.2f * (float) Math.random() + k * 1, 1.2f * (float) Math.random() + j * 1, -Proyecto.ancho/2, 0.03f, 0.03f, 0.03f, 0));
+                        c.add(new CoposNieve(gl, 1.2f * (float) Math.random() + k * 1, 1.2f * (float) Math.random() + j * 1, -Proyecto.ancho/2, 0.05f, 0.05f, 0.05f, 0));
 
                     } catch (Exception ex) {
                         System.exit(0);
@@ -64,7 +64,7 @@ public class Cielo {
     public void cielo() {
 
         float j = 10000;
-        float i = j + 650;
+        float i = j + 600;
 
         if (Teclado.rotarY > i) {
             cielo.c1 = 0.0f;
@@ -97,12 +97,7 @@ public class Cielo {
         cielo.c2 += 0.02f;
         cielo.c3 += 0.03f;
 
-//        gl.glPushMatrix();
-//        gl.glTranslatef(x, y, z);
-//        cielo.dibujarCuadradoxy();
-//        cielo.dibujarLateralDe();
-//        cielo.dibujarLateralIz();
-//        gl.glPopMatrix();
+
 
         gl.glPushMatrix();
         for (CoposNieve c1 : c) {
@@ -113,9 +108,9 @@ public class Cielo {
     }
 
     public void dia() {
-        cielo.c1 -= 0.01f;
-        cielo.c2 -= 0.01f;
-        cielo.c3 -= 0.02f;
+        cielo.c1 -= 0.03f;
+        cielo.c2 -= 0.03f;
+        cielo.c3 -= 0.04f;
         
         
         if (Teclado.trasY<=-8.5f) {
@@ -130,12 +125,6 @@ public class Cielo {
         gl.glPopMatrix();
         }
         
-        
-//        gl.glPushMatrix();
-//        gl.glTranslatef(x, y, z);
-//        cielo1.dibujarCuadradoxy(0.05f);
-//        cielo1.dibujarLateralDe();
-//        cielo1.dibujarLateralIz(0.05f);
-//        gl.glPopMatrix();
+
     }
 }

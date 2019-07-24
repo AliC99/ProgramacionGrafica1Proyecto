@@ -22,8 +22,8 @@ public class Casa3 {
     Casa c;
     Cubo ventana, linea, marco,
          base,
-         balcon;
-    Esfera ven1, emarco;
+         balcon,nieve;
+    Esfera ven1, emarco, luces;
     Torus mven1;
     Dodecaedro dc;
 
@@ -49,7 +49,9 @@ public class Casa3 {
         emarco = new Esfera(gl, 0, 0, 0, w / 8.0f, h / 12f, d / 20f, 0.23f, 0.13f, 0.04f, 10, 10);
         
         balcon = new Cubo(gl, 0, 0, 0, w/1.9f, h / 30,  d, 0.55f, 0.35f, 0.25f);
+        nieve= new Cubo(gl, 0, 0, 0, w/1.9f, h / 30,  d, 0.8f, 0.8f, 0.9f);
         
+        luces = new Esfera(gl, 0, 0, 0, balcon.h/4, balcon.h/4, balcon.h/4, 0.63f, 0.16f, 0.11f, 5, 5);
     }
 
     public void casa3() {
@@ -61,65 +63,170 @@ public class Casa3 {
         gl.glTranslatef(1.9f*w,h/5.5f,0);
         balcon.dibujarCubo();
         
+        //DERECHA
         gl.glPushMatrix();
         gl.glTranslatef(balcon.w/2.4f,6*balcon.h,0);
         gl.glScalef(0.15f,1,1);
         balcon.dibujarCubo();
+        
+        gl.glPushMatrix();
+        gl.glTranslatef(0,balcon.h/2,0);
+        gl.glScalef(1,0.5f,1);
+        nieve.dibujarCubo();
         gl.glPopMatrix();
         
+        gl.glPopMatrix();
+        //FIN DERECHA
+        
+        //FRONTAL
         gl.glPushMatrix();
         gl.glTranslatef(0,6*balcon.h,balcon.d/2.3f);
         gl.glScalef(1,1,0.15f);
         balcon.dibujarCubo();
+        
+        gl.glPushMatrix();
+        gl.glTranslatef(0,balcon.h/2,0);
+        gl.glScalef(1,0.5f,1);
+        nieve.dibujarCubo();
         gl.glPopMatrix();
         
-         gl.glPushMatrix();
+        gl.glPopMatrix();
+        //FIN FRONTAL
+        
+        //POSTERIOR
+        gl.glPushMatrix();
         gl.glTranslatef(0,6*balcon.h,-balcon.d/2.3f);
         gl.glScalef(1,1,0.15f);
         balcon.dibujarCubo();
+        
+        gl.glPushMatrix();
+        gl.glTranslatef(0,balcon.h/2,0);
+        gl.glScalef(1,0.5f,1);
+        nieve.dibujarCubo();
         gl.glPopMatrix();
         
+        gl.glPopMatrix();
+        //FIN POSTERIOR                
+        
+        //DERECHA 1
+        gl.glPushMatrix();
+        gl.glTranslatef(balcon.w/2.4f,3*balcon.h,balcon.d/2.3f);
+        
+        gl.glPushMatrix();
+        gl.glTranslatef(balcon.w/30,balcon.h,balcon.d/8);
+        luces.dibujarEsfera();
+        gl.glPopMatrix();
+        
+        gl.glPushMatrix();
+        gl.glTranslatef(-balcon.w/30,0,balcon.d/8);       
+        luces.dibujarEsfera(luces.c1,luces.c2,1);
+        gl.glPopMatrix();
+        
+        gl.glPushMatrix();
+        gl.glTranslatef(0,2*balcon.h,balcon.d/8);       
+        luces.dibujarEsfera(luces.c2,luces.c2,1);
+        gl.glPopMatrix();
+        
+        gl.glPushMatrix();
+        gl.glTranslatef(0,-1.3f*balcon.h,balcon.d/8);       
+        luces.dibujarEsfera(luces.c3,1,luces.c1);
+        gl.glPopMatrix();
+        
+        gl.glScalef(0.1f,6,0.1f);
+        balcon.dibujarCubo();
+        gl.glPopMatrix();
+        //FIN DERECHA 1
+        
+        //DERECHA 2
         gl.glPushMatrix();
         gl.glTranslatef(balcon.w/2.4f,3*balcon.h,0);
         gl.glScalef(0.1f,6,0.1f);
         balcon.dibujarCubo();
         gl.glPopMatrix();
+        //FIN DERECHA 2
         
-        gl.glPushMatrix();
-        gl.glTranslatef(balcon.w/2.4f,3*balcon.h,balcon.d/2.3f);
-        gl.glScalef(0.1f,6,0.1f);
-        balcon.dibujarCubo();
-        gl.glPopMatrix();
-        
+        //DERECHA 3
         gl.glPushMatrix();
         gl.glTranslatef(balcon.w/2.4f,3*balcon.h,-balcon.d/2.3f);
         gl.glScalef(0.1f,6,0.1f);
         balcon.dibujarCubo();
         gl.glPopMatrix();
+        //FIN DERECHA 3
         
-        gl.glPushMatrix();
-        gl.glTranslatef(-balcon.w/4f,3*balcon.h,-balcon.d/2.3f);
-        gl.glScalef(0.1f,6,0.1f);
-        balcon.dibujarCubo();
-        gl.glPopMatrix();
-        
+        //POSTERIOR 1
         gl.glPushMatrix();
         gl.glTranslatef(balcon.w/6,3*balcon.h,-balcon.d/2.3f);
         gl.glScalef(0.1f,6,0.1f);
         balcon.dibujarCubo();
         gl.glPopMatrix();
+        //FIN POSTERIOR 1
         
+        //POSTERIOR 2
         gl.glPushMatrix();
-        gl.glTranslatef(-balcon.w/4f,3*balcon.h,balcon.d/2.3f);
+        gl.glTranslatef(-balcon.w/4f,3*balcon.h,-balcon.d/2.3f);
         gl.glScalef(0.1f,6,0.1f);
         balcon.dibujarCubo();
         gl.glPopMatrix();
+        //FIN POSTERIOR 2                
         
+        //FRONTAL 1
         gl.glPushMatrix();
         gl.glTranslatef(balcon.w/6,3*balcon.h,balcon.d/2.3f);
+        
+        gl.glPushMatrix();
+        gl.glTranslatef(balcon.w/30,balcon.h,balcon.d/8);
+        luces.dibujarEsfera();
+        gl.glPopMatrix();
+        
+        gl.glPushMatrix();
+        gl.glTranslatef(-balcon.w/30,0,balcon.d/8);       
+        luces.dibujarEsfera(luces.c1,luces.c2,1);
+        gl.glPopMatrix();
+        
+        gl.glPushMatrix();
+        gl.glTranslatef(0,2*balcon.h,balcon.d/8);       
+        luces.dibujarEsfera(luces.c2,luces.c2,1);
+        gl.glPopMatrix();
+        
+        gl.glPushMatrix();
+        gl.glTranslatef(0,-1.3f*balcon.h,balcon.d/8);       
+        luces.dibujarEsfera(luces.c3,1,luces.c1);
+        gl.glPopMatrix();
+        
+        gl.glScalef(0.1f,6,0.1f);
+        balcon.dibujarCubo();   
+        gl.glPopMatrix();
+        //FIN FRONTAL 1
+        
+        //FRONTAL 2
+        gl.glPushMatrix();
+        gl.glTranslatef(-balcon.w/4f,3*balcon.h,balcon.d/2.3f);
+        
+        gl.glPushMatrix();
+        gl.glTranslatef(balcon.w/30,balcon.h,balcon.d/8);
+        luces.dibujarEsfera();
+        gl.glPopMatrix();
+        
+        gl.glPushMatrix();
+        gl.glTranslatef(-balcon.w/30,0,balcon.d/8);       
+        luces.dibujarEsfera(luces.c1,luces.c2,1);
+        gl.glPopMatrix();
+        
+        gl.glPushMatrix();
+        gl.glTranslatef(0,2*balcon.h,balcon.d/8);       
+        luces.dibujarEsfera(luces.c2,luces.c2,1);
+        gl.glPopMatrix();
+        
+        gl.glPushMatrix();
+        gl.glTranslatef(0,-1.3f*balcon.h,balcon.d/8);       
+        luces.dibujarEsfera(luces.c3,1,luces.c1);
+        gl.glPopMatrix();
+        
         gl.glScalef(0.1f,6,0.1f);
         balcon.dibujarCubo();
         gl.glPopMatrix();
+        //FIN FRONTAL 2
+       
         
         gl.glPopMatrix();
         //FIN BALCÓN
@@ -216,7 +323,7 @@ public class Casa3 {
 
         //VENTANA CIRCULAR
         gl.glPushMatrix();
-        gl.glTranslatef(w / 2f, h / 1.3f, 1.4f * c.puerta.d);
+        gl.glTranslatef(w / 1.5f, h / 1.3f, 1.4f * c.puerta.d);
         ven1.dibujarEsfera();
 
         gl.glPushMatrix();

@@ -32,26 +32,40 @@ public class Proyecto implements GLEventListener {
 
     //Creación objetos
     Piso p1;
+
     Arbol ac;
     Arbol a1;
+
     Teclado t;
     Mouse m;
-    Mouseprueba m1;
+
     Restaurante r1;
-    Buzon b1;
+
     Cielo ci1;
+
     Persona pr1;
-    Faro f1;
-    Casa1 c1;
+    Persona2 pr21;
+
     Letrero l1;
-    Casa2 c2,c21;
+
+    Casa1 c1;
+    Casa2 c2, c21, c22, c23;
     Casa3 c3;
-    
+
+    Iglu i1;
+    Iglu i2;
+
+    Faro2 f21;
+    Faro2 f22;
+
     ArrayList<Buzon> buzon;
     ArrayList<Casa> cabania;
     ArrayList<Arbol> arbol;
     ArrayList<Raton> raton;
+    ArrayList<Raton> raton1;
     ArrayList<Faro> faro1;
+
+    boolean prueba = false;
 
     public static void main(String[] args) {
         Frame frame = new Frame("Simple JOGL Application");
@@ -94,8 +108,6 @@ public class Proyecto implements GLEventListener {
         gl.setSwapInterval(1);
 
         // Setup the drawing area and shading mode
-       
-       
         gl.glShadeModel(GL.GL_SMOOTH); // try setting this to GL_FLAT and see what happens.
 
         gl.glEnable(GL.GL_DEPTH_TEST);
@@ -103,36 +115,57 @@ public class Proyecto implements GLEventListener {
         t = new Teclado();
         drawable.addKeyListener(t);
         m = new Mouse();
-//        m1 = new Mouseprueba();
         //drawable.addMouseMotionListener(m);
         //drawable.addMouseListener(m);
 
-        ac = new Arbol(gl, 0.0f, 0, -19.8f, 1.2f, 3.5f, 1.2f, 45);
         p1 = new Piso(gl, 0, -alto, 0, ancho, alto, largo);
-        a1 = new Arbol(gl, ancho / 20, 6.2f * p1.h, largo / 7.2f, 0.93f, 2.5f, 1.0f, 20);
+
+        ac = new Arbol(gl, 0.0f, 0, -19.8f, 1.2f, 3.5f, 1.2f, 45);
+        a1 = new Arbol(gl, ancho / 20, 4f * p1.h, largo / 7.2f, 0.6f, 1.3f, 0.78f, 20);
+
         r1 = new Restaurante(gl, 0, 11.775f * alto, -largo / 2f, 2.7f, 1.15f, 2.2f, 0);
-        b1 = new Buzon(gl, 0, 0, 0, 0.3f, 0.7f, 0.25f, 25);
-        ci1 = new Cielo(gl, 0, 100*alto, -largo/1.1f, ancho, 30, 42.5f);
-        pr1 = new Persona(gl, 0, 10* p1.h, 0, 0.2f, 0.2f, 0.2f, 180);
+
+        ci1 = new Cielo(gl, 0, 100 * alto, -largo / 1.1f, ancho, 30, 42.5f);
+
+        pr1 = new Persona(gl, 0, 3 * p1.h, 0, 0.2f, 0.2f, 0.2f, 180);
+        pr21 = new Persona2(gl, 0, 9 * p1.h, -largo / 1.6f, 0.15f, 0.4f, 0.2f, 180);
+
+        l1 = new Letrero(gl, 0, -11 * alto, largo / 2.8f, 0.8f, 0.65f, 0.1f, 20);
+
         c1 = new Casa1(gl, ancho / 35, 1.5f * p1.h, -largo / 35, 1.7f, 0.85f, 0.85f, 0);
-        l1 = new Letrero(gl, -7.3f * ancho / 16, -11 * alto, largo / 2.8f, 0.8f, 0.65f, 0.1f, 20);
-        c2 = new Casa2(gl, -ancho / 2.4f, 4.5f * p1.h, largo / 10, 0.5f, 0.8f, 0.55f, 0);
+        c2 = new Casa2(gl, -ancho / 2.4f, 4.5f * p1.h, largo / 18, 0.5f, 0.8f, 0.55f, 0);
         c21 = new Casa2(gl, ancho / 2.2f, 4.5f * p1.h, largo / 10, 0.5f, 0.8f, 0.55f, -90);
-        c3 = new Casa3(gl, ancho/30, 4.5f * p1.h, largo/65, 0.65f, 1f, 0.65f, 0);
-        
+        c22 = new Casa2(gl, ancho / 2.4f, 4.5f * p1.h, -largo / 2.25f, 0.5f, 0.8f, 0.55f, 0);
+        c23 = new Casa2(gl, -ancho / 2.4f, 4.5f * p1.h, -largo / 2.25f, 0.5f, 0.8f, 0.55f, 0);
+        c3 = new Casa3(gl, ancho / 30, 4.5f * p1.h, largo / 65, 0.65f, 1f, 0.65f, 0);
+
+        i1 = new Iglu(gl, ancho / 8f, 3 * alto, -largo / 2f, 0.6f, 0.6f, 0.6f, 0);
+        i2 = new Iglu(gl, -ancho / 8f, 3 * alto, -largo / 2f, 0.6f, 0.6f, 0.6f, 0);
+
+        f21 = new Faro2(gl, ancho / 8.8f, 4 * alto, largo / 25, 0.15f, 0.68f, 0.25f, 25);
+        f22 = new Faro2(gl, -ancho / 80.8f, 4 * alto, largo / 25, 0.15f, 0.68f, 0.25f, -25);
 
         //RATONES
         raton = new ArrayList<Raton>();
-        for (float i = 0; i < 6; i++) {
+        for (float i = -4 * largo / 21f; i < -largo / 7; i += 0.2f) {
             try {
-                raton.add(new Raton(gl, -ancho / 2.2f, p1.h, i * 3.5f, 0.07f, 0.12f, 0.18f, -20));
-                raton.add(new Raton(gl, -ancho / 2.8f, p1.h, i * 3.5f, 0.07f, 0.12f, 0.18f, 20));
+                raton.add(new Raton(gl, ancho / 8f, p1.h, i * 3.5f, 0.07f, 0.12f, 0.18f, 20));
+                raton.add(new Raton(gl, -ancho / 8f, p1.h, i * 3.5f, 0.07f, 0.12f, 0.18f, 20));
             } catch (Exception e) {
                 System.exit(0);
             }
         }
-        //FIN RATONES
 
+        raton1 = new ArrayList<Raton>();
+        for (float i = -2*ancho / 49f; i < 2 * ancho / 21; i += 0.2f) {
+            try {
+                raton1.add(new Raton(gl, i * 3.5f, p1.h, -largo / 3.6f, 0.07f, 0.12f, 0.18f, 20));
+            } catch (Exception e) {
+                System.exit(0);
+            }
+        }
+
+        //FIN RATONES
         //BUZONES 
         buzon = new ArrayList<Buzon>();
         for (float i = -(p1.w / 5f); i < 0; i++) {
@@ -198,11 +231,11 @@ public class Proyecto implements GLEventListener {
 
         //ARBOLES
         arbol = new ArrayList<Arbol>();
-        for (float i = -(p1.w); i < p1.w / 6; i++) {
+        for (float i = -(p1.w / 3f); i < p1.w / 6; i += 0.8f) {
             try {
-                arbol.add(new Arbol(gl, i * 1.35f, p1.h, -p1.d / 22, 0.7f, 1.95f, 0.6f, 45));
-                arbol.add(new Arbol(gl, i * 1.6f, p1.h, -p1.d / 10f, 0.7f, 1.95f, 0.6f, -45));
-                arbol.add(new Arbol(gl, i * 1.75f, p1.h, -p1.d / 6.5f, 0.7f, 1.95f, 0.6f, -45));
+                arbol.add(new Arbol(gl, i * 1.35f, 3f * p1.h, -p1.d / 22, 0.7f, 1.98f, 0.6f, 45));
+                arbol.add(new Arbol(gl, i * 1.6f, 3f * p1.h, -p1.d / 10f, 0.7f, 1.98f, 0.6f, -45));
+                arbol.add(new Arbol(gl, i * 1.75f, 3f * p1.h, -p1.d / 6.5f, 0.7f, 1.98f, 0.6f, -45));
             } catch (Exception e) {
                 System.exit(0);
             }
@@ -213,6 +246,46 @@ public class Proyecto implements GLEventListener {
                 arbol.add(new Arbol(gl, i * 1.3f, p1.h, p1.d / 3f, 0.7f, 2.5f, 0.6f, 45));
                 arbol.add(new Arbol(gl, i * 1.3f, p1.h, p1.d / 2.5f, 0.7f, 2.5f, 0.6f, -45));
                 arbol.add(new Arbol(gl, i * 1.3f, p1.h, p1.d / 2.15f, 0.7f, 2.5f, 0.6f, -45));
+            } catch (Exception e) {
+                System.exit(0);
+            }
+        }
+
+        for (float i = -(p1.w / 2f); i < -(p1.w / 15f); i += 0.8f) {
+            try {
+                arbol.add(new Arbol(gl, i * 1.3f, p1.h, -p1.d / 1.9f, 0.7f, 2.5f, 0.6f, 45));
+                arbol.add(new Arbol(gl, i * 1.3f, p1.h, -p1.d / 1.7f, 0.7f, 2.5f, 0.6f, -45));
+                arbol.add(new Arbol(gl, i * 1.3f, p1.h, -p1.d / 1.55f, 0.7f, 2.5f, 0.6f, -45));
+            } catch (Exception e) {
+                System.exit(0);
+            }
+        }
+
+        for (float i = (p1.w / 10f); i < (p1.w / 2f); i += 0.8f) {
+            try {
+                arbol.add(new Arbol(gl, i * 1.3f, p1.h, -p1.d / 1.9f, 0.7f, 2.2f, 0.6f, 45));
+                arbol.add(new Arbol(gl, i * 1.1f, p1.h, -p1.d / 1.7f, 0.7f, 2.2f, 0.6f, -45));
+                arbol.add(new Arbol(gl, i * 1.3f, p1.h, -p1.d / 1.55f, 0.7f, 2.2f, 0.6f, -45));
+            } catch (Exception e) {
+                System.exit(0);
+            }
+        }
+
+        for (float i = -(p1.d / 2f); i < p1.d / 2.8f; i += 0.85f) {
+            try {
+                arbol.add(new Arbol(gl, -p1.w / 2f, p1.h, i * 1.3f, 0.7f, 2.2f, 0.6f, -45));
+                arbol.add(new Arbol(gl, -p1.w / 1.5f, p1.h, i * 1.3f, 0.7f, 2.2f, 0.6f, 45));
+                arbol.add(new Arbol(gl, -p1.w / 1.2f, p1.h, i * 1.3f, 0.7f, 2.2f, 0.6f, 45));
+            } catch (Exception e) {
+                System.exit(0);
+            }
+        }
+
+        for (float i = -(p1.d / 2f); i < p1.d / 2.8f; i++) {
+            try {
+                arbol.add(new Arbol(gl, p1.w / 2f, p1.h, i * 1.3f, 0.7f, 2.5f, 0.6f, -45));
+                arbol.add(new Arbol(gl, p1.w / 1.8f, p1.h, i * 1.1f, 0.7f, 2.5f, 0.6f, 45));
+                arbol.add(new Arbol(gl, p1.w / 1.55f, p1.h, i * 1.3f, 0.7f, 2.5f, 0.6f, 45));
             } catch (Exception e) {
                 System.exit(0);
             }
@@ -238,19 +311,18 @@ public class Proyecto implements GLEventListener {
         gl.glLoadIdentity();
     }
 
-    static float cp = 0;
-
     public void display(GLAutoDrawable drawable) {
         GL gl = drawable.getGL();
-        if (Teclado.rotarY>=10000) {
-            gl.glClearColor(0,ci1.cielo.c2,ci1.cielo.c3, 0.0f);
-            
-        }else{
+        if (Teclado.rotarY >= 10000 ) {
             gl.glClearColor(0, ci1.cielo.c2, ci1.cielo.c3, 0.0f);
-            
+
+        } else {
+            gl.glClearColor(0, ci1.cielo.c2, ci1.cielo.c3, 0.0f);
+
         }
-         
-         
+        
+         //gl.glClearColor(0, ci1.cielo.c2, ci1.cielo.c3, 0.0f);
+
         // Clear the drawing area
         gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
         // Reset the current matrix to the "identity"
@@ -259,20 +331,11 @@ public class Proyecto implements GLEventListener {
 
         //Fondo
         if (ncam == 1) {
-            glu.gluLookAt(pr1.x, pr1.y + 2f * pr1.h, pr1.z + 1.3f, pr1.x, pr1.y, pr1.z, 0, 1, 0);
+            glu.gluLookAt(pr1.x, pr1.y + 2.3f * pr1.h, pr1.z + 1.3f, pr1.x, pr1.y, pr1.z, 0, 1, 0);
             pr1.x = Teclado.getTrasladaX();
             pr1.z = Teclado.getTrasladaZ();
 
-            pr1.moverW(0.91f);
-            pr1.moverS(6.86f);
 
-//            if (Teclado.trasladaZ < 0.76f && Teclado.trasladaZ > -2.78f && Teclado.trasladaX < 6f) {
-//            Teclado.trasladaZ = 0.75f;
-//        } else if (Teclado.trasladaZ < -7.23f && Teclado.trasladaZ > -7.5f && Teclado.trasladaX > 0.65f) {
-//            Teclado.trasladaZ = Teclado.trasladaZ;
-//        } else if (Teclado.trasladaZ < -7.23f && Teclado.trasladaZ > -7.5f && Teclado.trasladaX < 0.41f) {
-//            Teclado.trasladaZ = Teclado.trasladaZ;
-//        } 
             //VALIDAR GIROS DEL PERSONAJE    
             if (Teclado.getTrasladaZ() > 2.71f && Teclado.getTrasladaX() < -7.06f) {
                 if (Teclado.validarGiro == true) {
@@ -307,22 +370,19 @@ public class Proyecto implements GLEventListener {
             }
 
             //pr1.dibujarPersona();
-
             //FIN GIROS DEL PERSONAJE
-         
         }
 
         if (ncam == 2) {
-            glu.gluLookAt(pr1.x, pr1.y, pr1.z + 0.5f, pr1.x, pr1.y + pr1.h, pr1.z + Teclado.getTrasladaZ(), 0, 1, 0);
-
-            pr1.x = Teclado.getTrasladaX();
-            pr1.z = Teclado.getTrasladaZ();
+            glu.gluLookAt(a1.x, a1.e.y+0.7f, a1.z + 2f, a1.e.x, a1.e.y, a1.e.z , 0, 1, 0);
+          
+            
         }
         if (ncam == 3) {
             glu.gluLookAt(c1.puerta.x, c1.puerta.y, c1.puerta.z + 1.5f, c1.puerta.x, c1.puerta.y, c1.puerta.z, 0, 1, 0);
         }
         if (ncam == 4) {
-            glu.gluLookAt(ac.x, ac.y, ac.z + 0.2f, ac.x, ac.y, ac.z, 0, 1, 0);
+            glu.gluLookAt(r1.x, r1.y,r1.z + 0.2f, r1.x, r1.y, r1.z, 0, 1, 0);
             ac.x = Teclado.getTrasladaX();
             ac.z = Teclado.getTrasladaZ();
             ac.y = Teclado.getTrasladaY();
@@ -333,41 +393,81 @@ public class Proyecto implements GLEventListener {
 
         gl.glPushMatrix();
         gl.glTranslatef(p1.x, p1.y, p1.z);
-        
+
+        //PERSONAJES
         pr1.dibujarPersona();
-            
+        pr21.persona2();
+        //FIN PERSONAJES    
+
+        //CASAS
         for (Casa c : cabania) {
             c.dibujarCasa();
         }
+        c2.casa2(c2.cflecha.w / 2, -90);
+        c21.casa2(-c2.cflecha.w / 2, 90);
+        c22.casa2(-c2.cflecha.w / 2, 90);
+        c23.casa2(c2.cflecha.w / 2, -90);
+        c3.casa3();
+        //c1.casa1();
+        //FIN CASAS
+
+        //ARBOLES
         for (Arbol a : arbol) {
             a.dibujarArbol();
         }
-        for (Raton r : raton) {
-            r.raton();
 
+        a1.arbolCentral();
+        //FIN ARBOLES
+
+        for (Raton r : raton) {
+            gl.glPushMatrix();
+            Teclado.trasladarZ(gl);
+            if (Teclado.getTrasladar() >= 3.8f) {
+                Teclado.setTrasladar(2.5f);
+                prueba = true;
+            }
+            r.raton();
+            gl.glPopMatrix();
         }
+
+        if (prueba == true) {
+            for (Raton r2 : raton1) {
+                gl.glPushMatrix();
+                Teclado.trasladarX(gl);
+                if (Teclado.trasladar1 >= 2f) {
+                    Teclado.trasladar1=0f;                   
+                }
+                r2.ang = 90;
+                r2.raton();
+                gl.glPopMatrix();
+            }
+        }
+
         for (Buzon b : buzon) {
             b.buzon();
         }
+
+        //FAROS
         for (Faro f : faro1) {
+            f.p();
             f.faro1();
         }
+        f21.faro2();
+        f22.faro2();
+        //FIN FAROS
 
-        a1.arbolCentral();
+        //IGLU
+        i1.iglu();
+        i2.iglu();
+        //FIN IGLU
+
         p1.dibujarPiso();
         r1.dibujarRestaurante();
-        c2.casa2();
-        c21.casa2();
-        c3.casa3();
 
-        //c1.casa1();
         l1.letrero();
 
-       
-       
+        //CIELO
         ci1.cielo();
-        
-        
         gl.glPopMatrix();
 
         // Flush all drawing operations to the graphics card
