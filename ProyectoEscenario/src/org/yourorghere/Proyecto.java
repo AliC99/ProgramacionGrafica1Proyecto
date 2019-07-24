@@ -49,14 +49,13 @@ public class Proyecto implements GLEventListener {
     Letrero l1;
 
     Casa1 c1;
-    Casa2 c2, c21, c22, c23;
-    Casa3 c3;
+    Casa2 c2, c21, c22, c23, c24, c25, c26, c27, c28;
+    Casa3 c3, c31;
 
     Iglu i1;
     Iglu i2;
 
-    Faro2 f21;
-    Faro2 f22;
+    Faro2 f21, f22, f23, f24, f25, f26, f27, f28;
 
     ArrayList<Buzon> buzon;
     ArrayList<Casa> cabania;
@@ -130,20 +129,32 @@ public class Proyecto implements GLEventListener {
         pr1 = new Persona(gl, 0, 3 * p1.h, 0, 0.2f, 0.2f, 0.2f, 180);
         pr21 = new Persona2(gl, 0, 9 * p1.h, -largo / 1.6f, 0.15f, 0.4f, 0.2f, 180);
 
-        l1 = new Letrero(gl, 0, -11 * alto, largo / 2.8f, 0.8f, 0.65f, 0.1f, 20);
+        l1 = new Letrero(gl, -ancho / 2.2f, -11 * alto, largo / 2.8f, 0.8f, 0.65f, 0.1f, 20);
 
         c1 = new Casa1(gl, ancho / 35, 1.5f * p1.h, -largo / 35, 1.7f, 0.85f, 0.85f, 0);
         c2 = new Casa2(gl, -ancho / 2.4f, 4.5f * p1.h, largo / 18, 0.5f, 0.8f, 0.55f, 0);
         c21 = new Casa2(gl, ancho / 2.2f, 4.5f * p1.h, largo / 10, 0.5f, 0.8f, 0.55f, -90);
         c22 = new Casa2(gl, ancho / 2.4f, 4.5f * p1.h, -largo / 2.25f, 0.5f, 0.8f, 0.55f, 0);
         c23 = new Casa2(gl, -ancho / 2.4f, 4.5f * p1.h, -largo / 2.25f, 0.5f, 0.8f, 0.55f, 0);
+        c24 = new Casa2(gl, -ancho / 4f, 4.5f * p1.h, -largo / 2.25f, 0.5f, 0.8f, 0.55f, 0);
+        c25 = new Casa2(gl, -ancho / 6f, 4.5f * p1.h, -largo / 2.25f, 0.5f, 0.8f, 0.55f, 0);
+        c26 = new Casa2(gl, ancho / 3f, 4.5f * p1.h, -largo / 2.25f, 0.5f, 0.8f, 0.55f, 0);
+        c27 = new Casa2(gl, ancho / 5f, 4.5f * p1.h, -largo / 2.25f, 0.5f, 0.8f, 0.55f, 0);
+        c28 = new Casa2(gl, -ancho / 3f, 4.5f * p1.h, -largo / 4f, 0.5f, 0.8f, 0.55f, 0);
         c3 = new Casa3(gl, ancho / 30, 4.5f * p1.h, largo / 65, 0.65f, 1f, 0.65f, 0);
+        c31 = new Casa3(gl, ancho / 10, 4.5f * p1.h, largo / 3.8f, 0.65f, 1f, 0.65f, 180);
 
         i1 = new Iglu(gl, ancho / 8f, 3 * alto, -largo / 2f, 0.6f, 0.6f, 0.6f, 0);
         i2 = new Iglu(gl, -ancho / 8f, 3 * alto, -largo / 2f, 0.6f, 0.6f, 0.6f, 0);
 
         f21 = new Faro2(gl, ancho / 8.8f, 4 * alto, largo / 25, 0.15f, 0.68f, 0.25f, 25);
         f22 = new Faro2(gl, -ancho / 80.8f, 4 * alto, largo / 25, 0.15f, 0.68f, 0.25f, -25);
+        f23 = new Faro2(gl, -ancho / 80.8f, 4 * alto, largo / 4.3f, 0.15f, 0.68f, 0.25f, -25);
+        f24 = new Faro2(gl, ancho / 60.8f, 4 * alto, largo / 4.3f, 0.15f, 0.68f, 0.25f, -25);
+        f25 = new Faro2(gl, -ancho / 10.8f, 4 * alto, -largo / 2.5f, 0.15f, 0.68f, 0.25f, -25);
+        f26 = new Faro2(gl, -ancho / 15f, 4 * alto, -largo / 3.5f, 0.15f, 0.68f, 0.25f, -25);
+        f27 = new Faro2(gl, ancho / 10f, 4 * alto, -largo / 2.5f, 0.15f, 0.68f, 0.25f, -25);
+        f28 = new Faro2(gl, -ancho / 10.8f, 4 * alto, -largo /3.5f, 0.15f, 0.68f, 0.25f, -25);
 
         //RATONES
         raton = new ArrayList<Raton>();
@@ -157,7 +168,7 @@ public class Proyecto implements GLEventListener {
         }
 
         raton1 = new ArrayList<Raton>();
-        for (float i = -2*ancho / 49f; i < 2 * ancho / 21; i += 0.2f) {
+        for (float i = -2 * ancho / 49f; i < 2 * ancho / 21; i += 0.2f) {
             try {
                 raton1.add(new Raton(gl, i * 3.5f, p1.h, -largo / 3.6f, 0.07f, 0.12f, 0.18f, 20));
             } catch (Exception e) {
@@ -313,16 +324,15 @@ public class Proyecto implements GLEventListener {
 
     public void display(GLAutoDrawable drawable) {
         GL gl = drawable.getGL();
-        if (Teclado.rotarY >= 10000 ) {
+        if (Teclado.rotarY >= 10000) {
             gl.glClearColor(0, ci1.cielo.c2, ci1.cielo.c3, 0.0f);
 
         } else {
             gl.glClearColor(0, ci1.cielo.c2, ci1.cielo.c3, 0.0f);
 
         }
-        
-         //gl.glClearColor(0, ci1.cielo.c2, ci1.cielo.c3, 0.0f);
 
+        //gl.glClearColor(0, ci1.cielo.c2, ci1.cielo.c3, 0.0f);
         // Clear the drawing area
         gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
         // Reset the current matrix to the "identity"
@@ -334,7 +344,6 @@ public class Proyecto implements GLEventListener {
             glu.gluLookAt(pr1.x, pr1.y + 2.3f * pr1.h, pr1.z + 1.3f, pr1.x, pr1.y, pr1.z, 0, 1, 0);
             pr1.x = Teclado.getTrasladaX();
             pr1.z = Teclado.getTrasladaZ();
-
 
             //VALIDAR GIROS DEL PERSONAJE    
             if (Teclado.getTrasladaZ() > 2.71f && Teclado.getTrasladaX() < -7.06f) {
@@ -374,15 +383,14 @@ public class Proyecto implements GLEventListener {
         }
 
         if (ncam == 2) {
-            glu.gluLookAt(a1.x, a1.e.y+0.7f, a1.z + 2f, a1.e.x, a1.e.y, a1.e.z , 0, 1, 0);
-          
-            
+            glu.gluLookAt(a1.x, a1.e.y + 0.7f, a1.z + 2f, a1.e.x, a1.e.y, a1.e.z, 0, 1, 0);
+
         }
         if (ncam == 3) {
             glu.gluLookAt(c1.puerta.x, c1.puerta.y, c1.puerta.z + 1.5f, c1.puerta.x, c1.puerta.y, c1.puerta.z, 0, 1, 0);
         }
         if (ncam == 4) {
-            glu.gluLookAt(r1.x, r1.y,r1.z + 0.2f, r1.x, r1.y, r1.z, 0, 1, 0);
+            glu.gluLookAt(r1.x, r1.y, r1.z + 0.5f, r1.x, r1.y, r1.z, 0, 1, 0);
             ac.x = Teclado.getTrasladaX();
             ac.z = Teclado.getTrasladaZ();
             ac.y = Teclado.getTrasladaY();
@@ -407,7 +415,14 @@ public class Proyecto implements GLEventListener {
         c21.casa2(-c2.cflecha.w / 2, 90);
         c22.casa2(-c2.cflecha.w / 2, 90);
         c23.casa2(c2.cflecha.w / 2, -90);
+        c24.casa2(c2.cflecha.w / 2, -90);
+        c25.casa2(c2.cflecha.w / 2, -90);
+        c26.casa2(c2.cflecha.w / 2, -90);
+        c27.casa2(c2.cflecha.w / 2, -90);
+        c28.casa2(c2.cflecha.w / 2, -90);
+
         c3.casa3();
+        c31.casa3();
         //c1.casa1();
         //FIN CASAS
 
@@ -435,7 +450,7 @@ public class Proyecto implements GLEventListener {
                 gl.glPushMatrix();
                 Teclado.trasladarX(gl);
                 if (Teclado.trasladar1 >= 2f) {
-                    Teclado.trasladar1=0f;                   
+                    Teclado.trasladar1 = 0f;
                 }
                 r2.ang = 90;
                 r2.raton();
@@ -454,6 +469,12 @@ public class Proyecto implements GLEventListener {
         }
         f21.faro2();
         f22.faro2();
+        f23.faro2();
+        f24.faro2();
+        f25.faro2();
+        f26.faro2();
+        f27.faro2();
+        f28.faro2();
         //FIN FAROS
 
         //IGLU

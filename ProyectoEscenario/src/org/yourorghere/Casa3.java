@@ -57,7 +57,7 @@ public class Casa3 {
     public void casa3() {
         gl.glPushMatrix();
         gl.glTranslatef(x, y, z);
-
+        gl.glRotatef(ang,0,1,0);
         //BALCÓN
         gl.glPushMatrix();
         gl.glTranslatef(1.9f*w,h/5.5f,0);
